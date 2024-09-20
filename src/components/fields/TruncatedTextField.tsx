@@ -1,7 +1,13 @@
 import * as React from "react";
 import { useRecordContext } from "react-admin";
 
-const TruncatedTextField = ({ source, maxLength = 100 }) => {
+const TruncatedTextField = ({
+  source,
+  maxLength = 100,
+}: {
+  source: string;
+  maxLength: number;
+}) => {
   const record = useRecordContext();
   const text = record?.[source] || "";
 
