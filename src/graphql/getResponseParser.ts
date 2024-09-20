@@ -9,7 +9,7 @@ import { IntrospectionResult, IntrospectedResource } from "ra-data-graphql";
 import { IntrospectionField } from "graphql";
 import { ApolloQueryResult } from "@apollo/client";
 
-export default (_introspectionResults: IntrospectionResult) =>
+const getResponseParser = (_introspectionResults: IntrospectionResult) =>
   (
     raFetchMethod: string,
     _resource: IntrospectedResource,
@@ -92,3 +92,5 @@ const sanitizeResource = (data: any) => {
 
   return result;
 };
+
+export default getResponseParser

@@ -4,7 +4,6 @@ import buildGraphQLProvider, {
   buildQueryFactory,
 } from "ra-data-graphql-simple";
 
-import pluralize from "pluralize";
 import {
   GET_LIST,
   GET_ONE,
@@ -29,11 +28,10 @@ const dataProvider = buildGraphQLProvider({
   buildQuery,
   introspection: {
     operationNames: {
-      [GET_LIST]: (resource) => pluralize(resource.name).toLowerCase(),
+      [GET_LIST]: (resource) => `${resource.name}s`.toLowerCase(),
       [GET_ONE]: (resource) => resource.name.toLowerCase(),
-      [GET_MANY]: (resource) => pluralize(resource.name).toLowerCase(),
-      [GET_MANY_REFERENCE]: (resource) =>
-        pluralize(resource.name).toLowerCase(),
+      [GET_MANY]: (resource) => `${resource.name}s`.toLowerCase(),
+      [GET_MANY_REFERENCE]: (resource) => `${resource.name}s`.toLowerCase(),
       [CREATE]: (resource) => `create${resource.name}`,
       [UPDATE]: (resource) => `update${resource.name}`,
       [DELETE]: (resource) => `delete${resource.name}`,
