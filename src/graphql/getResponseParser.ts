@@ -27,6 +27,7 @@ const getResponseParser = (_introspectionResults: IntrospectionResult) =>
 
       return {
         data: data.data.edges
+          // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
           .map((edge: unknown) => edge.node)
           .map(sanitizeResource),
         pageInfo,
@@ -39,12 +40,14 @@ const getResponseParser = (_introspectionResults: IntrospectionResult) =>
     return { data: sanitizeResource(data.data) };
   };
 
-const sanitizeResource = (data: any) => {
+  // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
+const sanitizeResource = (data: unknown) => {
+  // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
   const result = Object.keys(data).reduce((acc, key) => {
     if (key.startsWith("_")) {
       return acc;
     }
-
+    // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
     const dataForKey = data[key];
 
     if (dataForKey === null || dataForKey === undefined) {
