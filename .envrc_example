@@ -1,0 +1,2 @@
+export NEXT_PUBLIC_GRAPHQL_URL=http://localhost:4200/graphql
+export NEXT_PUBLIC_GRAPHQL_AUTH_HEADER=Basic ThisIsVerySecureHash

@@ -1,99 +1,55 @@
 "use client";
 import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
-import buildGraphQLProvider, { buildQuery } from "ra-data-graphql-simple";
-import { gql } from "@apollo/client";
+import buildGraphQLProvider, {
+  buildQueryFactory,
+} from "ra-data-graphql-simple";
 
-const myBuildQuery: typeof buildQuery =
-  (introspection) => (fetchType, resource, params) => {
-    const builtQuery = buildQuery(introspection)(fetchType, resource, params);
+import {
+  GET_LIST,
+  GET_ONE,
+  GET_MANY,
+  GET_MANY_REFERENCE,
+  CREATE,
+  UPDATE,
+  DELETE,
+} from "ra-core";
 
-    if (fetchType === "GET_LIST") {
-      return {
-        // Use the default query variables and parseResponse
-        ...builtQuery,
+import buildGqlQuery from "@/graphql/buildGqlQuery";
+import getResponseParser from "@/graphql/getResponseParser";
+import { ExperienceList } from "./lists/ExperienceList";
 
-        parseResponse: (response) => {
-          console.log(response);
-
-          return {data: response.data.allExperiences.edges.map((edge: any) => edge.node),
-            total: response.data.allExperiences.totalCount,
-            pageInfo: response.data.allExperiences.pageInfo,
-          };
-        },
-        // Override the query
-
-        // `query Command($id: ID!) {
-        //     data: Command(id: $id) {
-        //         id
-        //         reference
-        //         customer {
-        //             id
-        //             firstName
-        //             lastName
-        //         }
-        //     }
-        // }`
-        //   allPosts(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: PostFilter): [Post]
-
-        query: gql`
-          query Experience
-          # (
-          #   # $page: Int
-          #   # $perPage: Int
-          #   # $sortField: String
-          #   # $sortOrder: String
-          #   # $filter: PostFilter
-          # ) 
-          {
-            allExperiences {
-              edges {
-                node {
-                  id
-                  description
-                  title
-                  operator {
-                    id
-                  }
-                  slug
-                  category {
-                    id
-                  }
-                  categories {
-                    id
-                  }
-                  activities {
-                    id
-                  }
-                  location {
-                    id
-                  }
-                  medias {
-                    id
-                  }
-                  weight
-                }
-              }
-            }
-          }
-        `,
-      };
-    }
-
-    return builtQuery;
-  };
+const buildQuery = buildQueryFactory(
+  undefined,
+  buildGqlQuery,
+  getResponseParser,
+);
 
 const dataProvider = buildGraphQLProvider({
-  clientOptions: { uri: process.env.NEXT_PUBLIC_GRAPHQL_URL },
-  buildQuery: myBuildQuery,
+  clientOptions: {
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+    headers: {
+      Authorization: process.env.NEXT_PUBLIC_GRAPHQL_AUTH_HEADER || "",
+    },
+  },
+  buildQuery,
+  introspection: {
+    operationNames: {
+      [GET_LIST]: (resource) => `${resource.name}s`.toLowerCase(),
+      [GET_ONE]: (resource) => resource.name.toLowerCase(),
+      [GET_MANY]: (resource) => `${resource.name}s`.toLowerCase(),
+      [GET_MANY_REFERENCE]: (resource) => `${resource.name}s`.toLowerCase(),
+      [CREATE]: (resource) => `create${resource.name}`,
+      [UPDATE]: (resource) => `update${resource.name}`,
+      [DELETE]: (resource) => `delete${resource.name}`,
+    },
+  },
 });
-
-console.log(process.env.NEXT_PUBLIC_GRAPHQL_URL);
 
 const AdminApp = () => (
   <Admin dataProvider={dataProvider}>
     <Resource
       name="Experience"
-      list={ListGuesser}
+      list={ExperienceList}
       edit={EditGuesser}
       recordRepresentation="title"
     />
@@ -104,24 +60,48 @@ const AdminApp = () => (
       recordRepresentation="title"
     />
     <Resource
-      name="Payment"
+      name="Activity"
       list={ListGuesser}
       edit={EditGuesser}
       recordRepresentation="title"
     />
-    {/* <Resource name="comments" list={ListGuesser} edit={EditGuesser} /> */}
+    <Resource
+      name="Category"
+      list={ListGuesser}
+      edit={EditGuesser}
+      recordRepresentation="name"
+    />
+    <Resource
+      name="Location"
+      list={ListGuesser}
+      edit={EditGuesser}
+      recordRepresentation="addressLineOne"
+    />
+    <Resource
+      name="Media"
+      list={ListGuesser}
+      edit={EditGuesser}
+      recordRepresentation="title"
+    />
+    <Resource
+      name="Operator"
+      list={ListGuesser}
+      edit={EditGuesser}
+      recordRepresentation="name"
+    />
+    <Resource
+      name="Payment"
+      list={ListGuesser}
+      edit={EditGuesser}
+      recordRepresentation="name"
+    />
+    <Resource
+      name="User"
+      list={ListGuesser}
+      edit={EditGuesser}
+      recordRepresentation="name"
+    />
   </Admin>
 );
 
 export default AdminApp;
-
-// import React from 'react';
-// import { PostCreate, PostEdit, PostList } from './posts';
-
-// const App = () => (
-//     <Admin dataProvider={dataProvider} >
-//         <Resource name="Post" list={PostList} edit={PostEdit} create={PostCreate} />
-//     </Admin>
-// );
-
-// export default App;

@@ -550,6 +550,11 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.2.tgz#5950e50960793055845e956c427fc2b0d70c5239"
   integrity sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==
 
+"@types/pluralize@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/pluralize/-/pluralize-0.0.33.tgz#8ad9018368c584d268667dd9acd5b3b806e8c82a"
+  integrity sha512-JOqsl+ZoCpP4e8TDke9W79FDcSgPAR0l6pixx2JHkhnRjvShyYiAYw2LVsnA7K08Y6DeOnaU6ujmENO4os/cYg==
+
 "@types/prop-types@*", "@types/prop-types@^15.7.12":
   version "15.7.13"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.13.tgz#2af91918ee12d9d32914feb13f5326658461b451"
@@ -1781,10 +1786,15 @@ graphemer@^1.4.0:
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
 
-graphql-ast-types-browser@~1.0.2:
+graphql-ast-types-browser@^1.0.2, graphql-ast-types-browser@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/graphql-ast-types-browser/-/graphql-ast-types-browser-1.0.2.tgz#474305af7e76f9692df6e50a88fb668ce258c4a4"
   integrity sha512-QuKZ+Et3dE7SyO5c41eNPlJc7+HwQxOzHfmIhqzj4cUgAGyhSwVkKb7K24zom8y6y0VnG7Xb3RRypjIVvfIevQ==
+
+graphql-ast-types@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/graphql-ast-types/-/graphql-ast-types-1.0.2.tgz#49f2ae8f52be9ae426263f95320888f0cb772711"
+  integrity sha512-X/fPOuVsW1jor3/FIceloKZB4YGx5nsZ8/7z7mceIU6tw7AQTt+OZ0Xk+RWk9DZ0DLdmZ3kuh67fkzGR+U7j6Q==
 
 graphql-tag@^2.12.6:
   version "2.12.6"
@@ -2502,6 +2512,11 @@ picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
+
+pluralize@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
+  integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
 pluralize@~7.0.0:
   version "7.0.0"
