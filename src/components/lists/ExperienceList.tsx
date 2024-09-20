@@ -9,11 +9,12 @@ import {
   ChipField,
 } from "react-admin";
 import TruncatedTextField from "../fields/TruncatedTextField";
+import GlobalIdTextField from "../fields/GlobalIdTextField";
 
 export const ExperienceList = () => (
   <List>
     <Datagrid>
-      <TextField source="id" />
+      <GlobalIdTextField source="id" />
       <TextField source="title" />
       <TextField source="slug" />
       <TruncatedTextField source="description" maxLength={69} />
