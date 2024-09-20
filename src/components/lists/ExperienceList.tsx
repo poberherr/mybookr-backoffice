@@ -12,33 +12,37 @@ import TruncatedTextField from "../fields/TruncatedTextField";
 
 export const ExperienceList = () => (
   <List>
-<Datagrid>
-    <TextField source="id" />
-    <TextField source="title" />
-    <TextField source="slug" />
-    <TruncatedTextField source="description" maxLength={69} />
-    <NumberField source="weight" />
-    <ReferenceField source="operator.id" reference="users">
-      <TextField source="operator.name" />
-    </ReferenceField>
-    <ReferenceField source="location.id" reference="locations">
-      <TextField source="location.name" />
-    </ReferenceField>
-    <ReferenceArrayField source="categories" reference="categories">
-      <SingleFieldList>
-        <ChipField source="name" />
-      </SingleFieldList>
-    </ReferenceArrayField>
-    <ReferenceArrayField source="activities" reference="activities">
-      <SingleFieldList>
-        <ChipField source="name" />
-      </SingleFieldList>
-    </ReferenceArrayField>
-    <ReferenceArrayField source="medias" reference="medias">
-      <SingleFieldList>
-        <ChipField source="url" />
-      </SingleFieldList>
-    </ReferenceArrayField>
-  </Datagrid>
+    <Datagrid>
+      <TextField source="id" />
+      <TextField source="title" />
+      <TextField source="slug" />
+      <TruncatedTextField source="description" maxLength={69} />
+      <NumberField source="weight" />
+      <ReferenceField source="operator.id" reference="User">
+        <TextField source="name" />
+      </ReferenceField>
+      <ReferenceField source="location.id" reference="Location">
+        <TextField source="addressLineOne" />
+        <br />
+        <TextField source="addressLineTwo" />
+        <br />
+        <NumberField source="postalCode" /> <TextField source="city" />
+      </ReferenceField>
+      <ReferenceArrayField source="categories" reference="Category">
+        <SingleFieldList>
+          <ChipField source="name" />
+        </SingleFieldList>
+      </ReferenceArrayField>
+      <ReferenceArrayField source="activities" reference="Activity">
+        <SingleFieldList>
+          <ChipField source="name" />
+        </SingleFieldList>
+      </ReferenceArrayField>
+      <ReferenceArrayField source="medias" reference="Media">
+        <SingleFieldList>
+          <ChipField source="url" />
+        </SingleFieldList>
+      </ReferenceArrayField>
+    </Datagrid>
   </List>
 );
