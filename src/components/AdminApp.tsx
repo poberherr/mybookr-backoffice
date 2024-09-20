@@ -1,8 +1,19 @@
 "use client";
 import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
-import buildGraphQLProvider, { buildQueryFactory } from "ra-data-graphql-simple";
-import { gql } from "@apollo/client";
+import buildGraphQLProvider, {
+  buildQueryFactory,
+} from "ra-data-graphql-simple";
 
+import pluralize from "pluralize";
+import {
+  GET_LIST,
+  GET_ONE,
+  GET_MANY,
+  GET_MANY_REFERENCE,
+  CREATE,
+  UPDATE,
+  DELETE,
+} from "ra-core";
 
 import buildGqlQuery from "@/graphql/buildGqlQuery";
 import getResponseParser from "@/graphql/getResponseParser";
@@ -10,81 +21,24 @@ import getResponseParser from "@/graphql/getResponseParser";
 const buildQuery = buildQueryFactory(
   // undefined,
   buildGqlQuery,
-  getResponseParser
-)
-
-// const myBuildQuery: typeof buildQuery =
-//   (introspection) => (fetchType, resource, params) => {
-//     const builtQuery = buildQuery(introspection)(fetchType, resource, params);
-
-//     if (fetchType === "GET_LIST") {
-//       return {
-//         // Use the default query variables and parseResponse
-//         ...builtQuery,
-
-//         parseResponse: (response) => {
-//           console.log(response);
-
-//           return {
-//             data: response.data.allExperiences.edges.map(
-//               (edge: any) => edge.node,
-//             ),
-//             total: response.data.allExperiences.totalCount,
-//             pageInfo: response.data.allExperiences.pageInfo,
-//           };
-//         },
-
-//         query: gql`
-//           query Experience 
-//           {
-//             allExperiences {
-//               edges {
-//                 node {
-//                   id
-//                   description
-//                   title
-//                   operator {
-//                     id
-//                   }
-//                   slug
-//                   category {
-//                     id
-//                   }
-//                   categories {
-//                     id
-//                   }
-//                   activities {
-//                     id
-//                   }
-//                   location {
-//                     id
-//                   }
-//                   medias {
-//                     id
-//                   }
-//                   weight
-//                 }
-//               }
-//             }
-//           }
-//         `,
-//       };
-//     }
-
-//     return builtQuery;
-//   };
+  getResponseParser,
+);
 
 const dataProvider = buildGraphQLProvider({
   clientOptions: { uri: process.env.NEXT_PUBLIC_GRAPHQL_URL },
   buildQuery,
   introspection: {
     operationNames: {
-      "GET_LIST": (type) => {
-        console.log({type})
-        return type.name
-      }
-    }
-  }
+      [GET_LIST]: (resource) => pluralize(resource.name).toLowerCase(),
+      [GET_ONE]: (resource) => resource.name.toLowerCase(),
+      [GET_MANY]: (resource) => pluralize(resource.name).toLowerCase(),
+      [GET_MANY_REFERENCE]: (resource) =>
+        pluralize(resource.name).toLowerCase(),
+      [CREATE]: (resource) => `create${resource.name}`,
+      [UPDATE]: (resource) => `update${resource.name}`,
+      [DELETE]: (resource) => `delete${resource.name}`,
+    },
+  },
 });
 
 const AdminApp = () => (
