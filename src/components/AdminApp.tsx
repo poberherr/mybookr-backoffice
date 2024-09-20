@@ -16,6 +16,7 @@ import {
 
 import buildGqlQuery from "@/graphql/buildGqlQuery";
 import getResponseParser from "@/graphql/getResponseParser";
+import { ExperienceList } from "./lists/ExperienceList";
 
 const buildQuery = buildQueryFactory(
   undefined,
@@ -43,7 +44,7 @@ const AdminApp = () => (
   <Admin dataProvider={dataProvider}>
     <Resource
       name="Experience"
-      list={ListGuesser}
+      list={ExperienceList}
       edit={EditGuesser}
       recordRepresentation="title"
     />
