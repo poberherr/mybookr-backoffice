@@ -85,139 +85,125 @@ function processSparseFields(
     return permittedSparseFields;
 }
 
-export default (introspectionResults: IntrospectionResult) =>
-    (
-        resource: IntrospectedResource,
-        raFetchMethod: string,
-        queryType: IntrospectionField,
-        variables: any
-    ) => {
-        console.dir({introspectionResults, queryType}, {depth: null})
-        let { sortField, sortOrder, ...metaVariables } = variables;
+const buildGqlQuery = (introspectionResults: IntrospectionResult) =>
+  (
+    resource: IntrospectedResource,
+    raFetchMethod: string,
+    queryType: IntrospectionField,
+    variables: any,
+  ) => {
+    console.dir({ introspectionResults, queryType, variables });
+    let { sortField, sortOrder, ...metaVariables } = variables;
 
-        const apolloArgs = buildApolloArgs(queryType, variables);
-        const args = buildArgs(queryType, variables);
+    const apolloArgs = buildApolloArgs(queryType, variables);
+    const args = buildArgs(queryType, variables);
+    console.dir({args})
 
-        const sparseFields = metaVariables.meta?.sparseFields;
-        if (sparseFields) delete metaVariables.meta.sparseFields;
+    const sparseFields = metaVariables.meta?.sparseFields;
+    if (sparseFields) delete metaVariables.meta.sparseFields;
 
-        const metaArgs = buildArgs(queryType, metaVariables);
+    const metaArgs = buildArgs(queryType, metaVariables);
 
-        const fields = buildFields(introspectionResults)(
-            resource.type.fields,
-            sparseFields
-        );
+    const fields = buildFields(introspectionResults)(
+      resource.type.fields,
+      sparseFields,
+    );
 
-        if (
-            raFetchMethod === GET_LIST ||
-            raFetchMethod === GET_MANY ||
-            raFetchMethod === GET_MANY_REFERENCE
-        ) {
-            console.log('CATCH ME')
-            return gqlTypes.document([
-                gqlTypes.operationDefinition(
-                    'query',
-                    // gqlTypes.selectionSet([
-                    //     gqlTypes.field(
-                    //         gqlTypes.name(`${queryType.name}s`),
-                    //         gqlTypes.name('edges'),
-                    //         args,
-                    //         undefined,
-                    //         gqlTypes.selectionSet(fields)
-                    //     ),
-                    //     gqlTypes.field(
-                    //         gqlTypes.name(`_${queryType.name}Meta`),
-                    //         gqlTypes.name('total'),
-                    //         metaArgs,
-                    //         undefined,
-                    //         gqlTypes.selectionSet([
-                    //             gqlTypes.field(gqlTypes.name('count')),
-                    //         ])
-                    //     ),
-                    // ]),
-                    gqlTypes.selectionSet([
-                        gqlTypes.field(
-                            gqlTypes.name(`${queryType.name}s`),
-                            gqlTypes.name('data'),
-                            args,
-                            undefined,
-                            gqlTypes.selectionSet([
-                                gqlTypes.field(gqlTypes.name('cursor')),
-                                gqlTypes.field(
-                                    gqlTypes.name(`edges`),
-                                    undefined,
-                                    undefined,
-                                    undefined,
-                                    gqlTypes.selectionSet([
-                                        gqlTypes.name(`node`)
-                                    ])
-                                ),
-                            ])
-                        ),
-                    ]),
-                    gqlTypes.name(queryType.name),
-                    apolloArgs
-                ),
-            ]);
-        }
-
-        if (raFetchMethod === DELETE) {
-            return gqlTypes.document([
-                gqlTypes.operationDefinition(
-                    'mutation',
-                    gqlTypes.selectionSet([
-                        gqlTypes.field(
-                            gqlTypes.name(queryType.name),
-                            gqlTypes.name('data'),
-                            args,
-                            undefined,
-                            gqlTypes.selectionSet(fields)
-                        ),
-                    ]),
-                    gqlTypes.name(queryType.name),
-                    apolloArgs
-                ),
-            ]);
-        }
-
-        if (raFetchMethod === DELETE_MANY || raFetchMethod === UPDATE_MANY) {
-            return gqlTypes.document([
-                gqlTypes.operationDefinition(
-                    'mutation',
-                    gqlTypes.selectionSet([
-                        gqlTypes.field(
-                            gqlTypes.name(queryType.name),
-                            gqlTypes.name('data'),
-                            args,
-                            undefined,
-                            gqlTypes.selectionSet([
-                                gqlTypes.field(gqlTypes.name('ids')),
-                            ])
-                        ),
-                    ]),
-                    gqlTypes.name(queryType.name),
-                    apolloArgs
-                ),
-            ]);
-        }
-
-        return gqlTypes.document([
-            gqlTypes.operationDefinition(
-                QUERY_TYPES.includes(raFetchMethod) ? 'query' : 'mutation',
-                gqlTypes.selectionSet([
+    if (
+      raFetchMethod === GET_LIST ||
+      raFetchMethod === GET_MANY ||
+      raFetchMethod === GET_MANY_REFERENCE
+    ) {
+      console.log("CATCH ME");
+      return gqlTypes.document([
+        gqlTypes.operationDefinition(
+          "query",
+          gqlTypes.selectionSet([
+            gqlTypes.field(
+              gqlTypes.name(queryType.name),
+              gqlTypes.name("data"),
+              args,
+              undefined,
+              gqlTypes.selectionSet([
+                gqlTypes.field(
+                  gqlTypes.name("edges"),
+                  undefined,
+                  undefined,
+                  undefined,
+                  gqlTypes.selectionSet([
                     gqlTypes.field(
-                        gqlTypes.name(queryType.name),
-                        gqlTypes.name('data'),
-                        args,
-                        undefined,
-                        gqlTypes.selectionSet(fields)
+                      gqlTypes.name("node"),
+                      undefined,
+                      undefined,
+                      undefined,
+                      gqlTypes.selectionSet(fields),
                     ),
-                ]),
-                gqlTypes.name(queryType.name),
-                apolloArgs
+                  ]),
+                ),
+              ]),
             ),
-        ]);
-    };
+          ]),
+          gqlTypes.name(queryType.name),
+          apolloArgs,
+        ),
+      ]);
+    }
+
+    if (raFetchMethod === DELETE) {
+      return gqlTypes.document([
+        gqlTypes.operationDefinition(
+          "mutation",
+          gqlTypes.selectionSet([
+            gqlTypes.field(
+              gqlTypes.name(queryType.name),
+              gqlTypes.name("data"),
+              args,
+              undefined,
+              gqlTypes.selectionSet(fields),
+            ),
+          ]),
+          gqlTypes.name(queryType.name),
+          apolloArgs,
+        ),
+      ]);
+    }
+
+    if (raFetchMethod === DELETE_MANY || raFetchMethod === UPDATE_MANY) {
+      return gqlTypes.document([
+        gqlTypes.operationDefinition(
+          "mutation",
+          gqlTypes.selectionSet([
+            gqlTypes.field(
+              gqlTypes.name(queryType.name),
+              gqlTypes.name("data"),
+              args,
+              undefined,
+              gqlTypes.selectionSet([gqlTypes.field(gqlTypes.name("ids"))]),
+            ),
+          ]),
+          gqlTypes.name(queryType.name),
+          apolloArgs,
+        ),
+      ]);
+    }
+
+    return gqlTypes.document([
+      gqlTypes.operationDefinition(
+        QUERY_TYPES.includes(raFetchMethod) ? "query" : "mutation",
+        gqlTypes.selectionSet([
+          gqlTypes.field(
+            gqlTypes.name(queryType.name),
+            gqlTypes.name("data"),
+            args,
+            undefined,
+            gqlTypes.selectionSet(fields),
+          ),
+        ]),
+        gqlTypes.name(queryType.name),
+        apolloArgs,
+      ),
+    ]);
+  };
 
 export const buildFields =
     (introspectionResults: IntrospectionResult, paths = []) =>
@@ -383,3 +369,5 @@ export const buildApolloArgs = (
 
     return args;
 };
+
+export default buildGqlQuery

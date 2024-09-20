@@ -19,7 +19,7 @@ import buildGqlQuery from "@/graphql/buildGqlQuery";
 import getResponseParser from "@/graphql/getResponseParser";
 
 const buildQuery = buildQueryFactory(
-  // undefined,
+  undefined,
   buildGqlQuery,
   getResponseParser,
 );
