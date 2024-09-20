@@ -25,7 +25,12 @@ const buildQuery = buildQueryFactory(
 );
 
 const dataProvider = buildGraphQLProvider({
-  clientOptions: { uri: process.env.NEXT_PUBLIC_GRAPHQL_URL },
+  clientOptions: {
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+    headers: {
+      Authorization: process.env.NEXT_PUBLIC_GRAPHQL_AUTH_HEADER || "",
+    },
+  },
   buildQuery,
   introspection: {
     operationNames: {
