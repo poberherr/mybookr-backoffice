@@ -27,8 +27,6 @@ const MarkdownTextField = ({
     );
   }, [text, maxLength]);
 
-  console.dir({renderedMarkdown})
-
   return (
     <span title={text} dangerouslySetInnerHTML={{ __html: renderedMarkdown }}/>
   );

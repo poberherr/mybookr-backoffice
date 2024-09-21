@@ -8,7 +8,7 @@ import {
   SingleFieldList,
   ChipField,
 } from "react-admin";
-import TruncatedTextField from "../fields/TruncatedTextField";
+
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import MarkdownTextField from "../fields/MarkdownField";
 

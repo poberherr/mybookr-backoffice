@@ -90,12 +90,10 @@ const buildGqlQuery =
     queryType: IntrospectionField,
     variables: any,
   ) => {
-    console.dir({ introspectionResults, queryType, variables });
     let { sortField, sortOrder, ...metaVariables } = variables;
 
     const apolloArgs = buildApolloArgs(queryType, variables);
     const args = buildArgs(queryType, variables);
-    console.dir({ args });
 
     const sparseFields = metaVariables.meta?.sparseFields;
     if (sparseFields) delete metaVariables.meta.sparseFields;
@@ -112,7 +110,6 @@ const buildGqlQuery =
       raFetchMethod === GET_MANY ||
       raFetchMethod === GET_MANY_REFERENCE
     ) {
-      console.log("CATCH ME");
       return gqlTypes.document([
         gqlTypes.operationDefinition(
           "query",
