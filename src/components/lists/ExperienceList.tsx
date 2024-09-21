@@ -30,15 +30,19 @@ export const ExperienceList = () => (
         <br />
         <NumberField source="postalCode" /> <TextField source="city" />
       </ReferenceField>
-      <ReferenceArrayField source="categories" reference="Category">
-        <SingleFieldList>
-          <ChipField source="name" />
-        </SingleFieldList>
+      <ReferenceArrayField
+        source="categories"
+        reference="Category"
+        label="Categories"
+      >
+        <Datagrid>
+          <ChipField source="title" />
+        </Datagrid>
       </ReferenceArrayField>
       <ReferenceArrayField source="activities" reference="Activity">
-        <SingleFieldList>
-          <ChipField source="name" />
-        </SingleFieldList>
+        <Datagrid>
+          <ChipField source="title" />
+        </Datagrid>
       </ReferenceArrayField>
       <ReferenceArrayField source="medias" reference="Media">
         <SingleFieldList>
