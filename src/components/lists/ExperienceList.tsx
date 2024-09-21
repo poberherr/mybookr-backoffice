@@ -10,6 +10,7 @@ import {
 } from "react-admin";
 import TruncatedTextField from "../fields/TruncatedTextField";
 import GlobalIdTextField from "../fields/GlobalIdTextField";
+import MarkdownTextField from "../fields/MarkdownField";
 
 export const ExperienceList = () => (
   <List>
@@ -17,7 +18,7 @@ export const ExperienceList = () => (
       <GlobalIdTextField source="id" />
       <TextField source="title" />
       <TextField source="slug" />
-      <TruncatedTextField source="description" maxLength={69} />
+      <MarkdownTextField source="description" maxLength={69} />
       <NumberField source="weight" />
       <ReferenceField source="operator.id" reference="User">
         <TextField source="name" />
