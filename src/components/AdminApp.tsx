@@ -27,6 +27,7 @@ import { PaymentList } from "./lists/PaymentList";
 import { BookingEdit } from "./edits/BookingEdit";
 import { LocationEdit } from "./edits/LocationEdit";
 import { SignInButton, useAuth } from "@clerk/nextjs";
+import { MyLayout } from "./MyLayout";
 
 const buildQuery = buildQueryFactory(
   undefined,
@@ -79,7 +80,7 @@ const AdminApp = () => {
     return <SignInButton />;
   }
   return (
-    <Admin dataProvider={dataProvider}>
+    <Admin dataProvider={dataProvider} layout={MyLayout}>
       <Resource
         name="Experience"
         list={ExperienceList}
