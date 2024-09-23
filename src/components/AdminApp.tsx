@@ -18,7 +18,10 @@ import buildGqlQuery from "@/graphql/buildGqlQuery";
 import getResponseParser from "@/graphql/getResponseParser";
 import { ExperienceList } from "./lists/ExperienceList";
 import { CategoryList } from "./lists/CategoryList";
-
+import { BookingList } from "./lists/BookingList";
+import { ActivityList } from "./lists/ActivityList";
+import { MediaList } from "./lists/MediaList";
+import { PaymentList } from "./lists/PaymentList";
 const buildQuery = buildQueryFactory(
   undefined,
   buildGqlQuery,
@@ -56,13 +59,13 @@ const AdminApp = () => (
     />
     <Resource
       name="Booking"
-      list={ListGuesser}
+      list={BookingList}
       edit={EditGuesser}
       recordRepresentation="title"
     />
     <Resource
       name="Activity"
-      list={ListGuesser}
+      list={ActivityList}
       edit={EditGuesser}
       recordRepresentation="title"
     />
@@ -80,7 +83,7 @@ const AdminApp = () => (
     />
     <Resource
       name="Media"
-      list={ListGuesser}
+      list={MediaList}
       edit={EditGuesser}
       recordRepresentation="title"
     />
@@ -92,7 +95,7 @@ const AdminApp = () => (
     />
     <Resource
       name="Payment"
-      list={ListGuesser}
+      list={PaymentList}
       edit={EditGuesser}
       recordRepresentation="name"
     />
