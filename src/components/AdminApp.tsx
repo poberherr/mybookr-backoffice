@@ -36,18 +36,18 @@ const buildQuery = buildQueryFactory(
 );
 
 const AdminApp = () => {
-  const {getToken} = useAuth();
+  const { getToken } = useAuth();
 
-    const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
-    useEffect(() => {
-      const fetchToken = async () => {
-        const fetchedToken = await getToken();
-        setToken(fetchedToken);
-      };
+  useEffect(() => {
+    const fetchToken = async () => {
+      const fetchedToken = await getToken();
+      setToken(fetchedToken);
+    };
 
-      fetchToken();
-    }, [getToken]);
+    fetchToken();
+  }, [getToken]);
 
   const dataProvider = useMemo(() => {
     if (!token) {
@@ -55,10 +55,10 @@ const AdminApp = () => {
     }
     return buildGraphQLProvider({
       clientOptions: {
-        // link: createAuthLink().concat(httpLink),
         uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
         headers: {
           Authorization: `Bearer ${token}`,
+          MybookrAuth: process.env.NEXT_PUBLIC_GRAPHQL_AUTH_HEADER || "",
         },
       },
       buildQuery,
