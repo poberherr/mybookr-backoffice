@@ -5,8 +5,6 @@ import {
   NumberField,
   ReferenceField,
   ReferenceArrayField,
-  SingleFieldList,
-  ChipField,
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
@@ -30,25 +28,18 @@ export const ExperienceList = () => (
         <br />
         <NumberField source="postalCode" /> <TextField source="city" />
       </ReferenceField>
+
       <ReferenceArrayField
-        source="categories"
         reference="Category"
+        source="categoriesIds"
         label="Categories"
-      >
-        <Datagrid>
-          <ChipField source="title" />
-        </Datagrid>
-      </ReferenceArrayField>
-      <ReferenceArrayField source="activities" reference="Activity">
-        <Datagrid>
-          <ChipField source="title" />
-        </Datagrid>
-      </ReferenceArrayField>
-      <ReferenceArrayField source="medias" reference="Media">
-        <SingleFieldList>
-          <ChipField source="url" />
-        </SingleFieldList>
-      </ReferenceArrayField>
+      />
+
+      <ReferenceArrayField
+        reference="Activity"
+        source="activitiesIds"
+        label="Activities"
+      />
     </Datagrid>
   </List>
 );
