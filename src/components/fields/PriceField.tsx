@@ -1,6 +1,4 @@
-import * as React from "react";
 import { useRecordContext } from "react-admin";
-import { Chip } from "@mui/material";
 
 const PriceField = ({ source }: { source: string }) => {
   const record = useRecordContext();
@@ -10,10 +8,10 @@ const PriceField = ({ source }: { source: string }) => {
 
   try {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency }).format(
-        price
+        price / 100
       );
   } catch (error) {
-    return `${price} ${currency}`;
+    return `${price / 100} ${currency}`;
   }
 
 };
