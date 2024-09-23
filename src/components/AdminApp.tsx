@@ -22,6 +22,8 @@ import { BookingList } from "./lists/BookingList";
 import { ActivityList } from "./lists/ActivityList";
 import { MediaList } from "./lists/MediaList";
 import { PaymentList } from "./lists/PaymentList";
+import { BookingEdit } from "./edits/BookingEdit";
+
 const buildQuery = buildQueryFactory(
   undefined,
   buildGqlQuery,
@@ -60,8 +62,8 @@ const AdminApp = () => (
     <Resource
       name="Booking"
       list={BookingList}
-      edit={EditGuesser}
-      recordRepresentation="title"
+      edit={BookingEdit}
+      recordRepresentation="id"
     />
     <Resource
       name="Activity"
