@@ -20,7 +20,6 @@ export const BookingEdit = () => (
         sx={{
           padding: "2rem",
           marginBottom: "1rem",
-          background: "#fafafa",
           border: "2px solid #efefef",
         }}
       >
