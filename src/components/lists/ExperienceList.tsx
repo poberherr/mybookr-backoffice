@@ -8,25 +8,25 @@ import {
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
-import MarkdownTextField from "../fields/MarkdownField";
 
 export const ExperienceList = () => (
   <List>
     <Datagrid>
       <GlobalIdTextField source="id" />
-      <TextField source="title" />
-      <TextField source="slug" />
-      <MarkdownTextField source="description" maxLength={69} />
-      <NumberField source="weight" />
-      <ReferenceField source="operator.id" reference="User">
+      <ReferenceField source="operator.id" reference="User" label="Operator">
         <TextField source="name" />
       </ReferenceField>
-      <ReferenceField source="location.id" reference="Location">
-        <TextField source="addressLineOne" />
+      <TextField source="title" />
+      <TextField source="slug" />
+      <NumberField source="weight" label="Sort Weight" />
+      <ReferenceField
+        source="location.id"
+        reference="Location"
+        label="Location"
+      >
+        <TextField source="postalCode" /> <TextField source="city" />
         <br />
-        <TextField source="addressLineTwo" />
-        <br />
-        <NumberField source="postalCode" /> <TextField source="city" />
+        <TextField source="country" />
       </ReferenceField>
 
       <ReferenceArrayField
