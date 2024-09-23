@@ -23,6 +23,7 @@ import { ActivityList } from "./lists/ActivityList";
 import { MediaList } from "./lists/MediaList";
 import { PaymentList } from "./lists/PaymentList";
 import { BookingEdit } from "./edits/BookingEdit";
+import { LocationEdit } from "./edits/Locationedit";
 
 const buildQuery = buildQueryFactory(
   undefined,
@@ -80,7 +81,7 @@ const AdminApp = () => (
     <Resource
       name="Location"
       list={ListGuesser}
-      edit={EditGuesser}
+      edit={LocationEdit}
       recordRepresentation="addressLineOne"
     />
     <Resource
