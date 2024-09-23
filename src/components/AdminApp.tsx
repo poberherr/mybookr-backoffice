@@ -23,7 +23,7 @@ import { ActivityList } from "./lists/ActivityList";
 import { MediaList } from "./lists/MediaList";
 import { PaymentList } from "./lists/PaymentList";
 import { BookingEdit } from "./edits/BookingEdit";
-import { LocationEdit } from "./edits/Locationedit";
+import { LocationEdit } from "./edits/LocationEdit";
 
 const buildQuery = buildQueryFactory(
   undefined,
