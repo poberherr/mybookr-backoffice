@@ -18,6 +18,7 @@ import buildGqlQuery from "@/graphql/buildGqlQuery";
 import getResponseParser from "@/graphql/getResponseParser";
 import { ExperienceList } from "./lists/ExperienceList";
 import { CategoryList } from "./lists/CategoryList";
+import { BookingEdit } from "./edits/BookingEdit";
 
 const buildQuery = buildQueryFactory(
   undefined,
@@ -57,8 +58,8 @@ const AdminApp = () => (
     <Resource
       name="Booking"
       list={ListGuesser}
-      edit={EditGuesser}
-      recordRepresentation="title"
+      edit={BookingEdit}
+      recordRepresentation="id"
     />
     <Resource
       name="Activity"
