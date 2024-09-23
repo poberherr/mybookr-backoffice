@@ -12,6 +12,7 @@
     "format:check": "prettier src"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.6.0",
     "graphql": "^16.9.0",
     "mapbox-gl": "^3.6.0",
     "markdown-it": "^14.1.0",
