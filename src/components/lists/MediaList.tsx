@@ -1,8 +1,7 @@
 import { List, Datagrid, TextField, ImageField } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
-import BookingStatusField from "../fields/BookingStatusField";
-import PriceField from "../fields/PriceField";
+
 export const MediaList = () => (
   <List>
     <Datagrid>

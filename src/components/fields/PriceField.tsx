@@ -10,7 +10,7 @@ const PriceField = ({ source }: { source: string }) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency }).format(
         price / 100
       );
-  } catch (error) {
+  } catch {
     return `${price / 100} ${currency}`;
   }
 

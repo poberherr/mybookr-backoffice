@@ -4,7 +4,6 @@ import {
     TextField,
     NumberField,
     ReferenceField,
-    ReferenceArrayField,
   } from "react-admin";
   
   import GlobalIdTextField from "../fields/GlobalIdTextField";

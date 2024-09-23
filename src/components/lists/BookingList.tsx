@@ -3,7 +3,6 @@ import {
     Datagrid,
     TextField,
     ReferenceField,
-    ChipField,
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
