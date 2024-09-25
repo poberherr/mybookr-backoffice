@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
+import { Admin, Resource, ListGuesser, EditGuesser, CustomRoutes } from "react-admin";
+import { Route } from "react-router-dom";
 import buildGraphQLProvider, {
   buildQueryFactory,
 } from "ra-data-graphql-simple";
@@ -28,6 +29,7 @@ import { BookingEdit } from "./edits/BookingEdit";
 import { LocationEdit } from "./edits/LocationEdit";
 import { SignInButton, useAuth } from "@clerk/nextjs";
 import { MyLayout } from "./MyLayout";
+import Dashboard from "./Dashboard";
 
 const buildQuery = buildQueryFactory(
   undefined,
@@ -135,6 +137,9 @@ const AdminApp = () => {
         edit={EditGuesser}
         recordRepresentation="name"
       />
+      <CustomRoutes>
+        <Route path="/" element={<Dashboard />} />
+      </CustomRoutes>
     </Admin>
   );
 };
