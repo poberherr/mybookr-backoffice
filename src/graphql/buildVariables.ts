@@ -206,6 +206,7 @@ const buildGetListVariables =
       filter: { [key: string]: any };
       page: number;
       perPage: number;
+      first: number;
       sortField: string;
       sortOrder: string;
       meta?: object;
@@ -298,8 +299,9 @@ const buildGetListVariables =
     }
 
     if (params.pagination) {
-      variables.page = parseInt(params.pagination.page, 10) - 1;
-      variables.perPage = parseInt(params.pagination.perPage, 10);
+      // variables.page = parseInt(params.pagination.page, 10) - 1;
+      // variables.perPage = parseInt(params.pagination.perPage, 10);
+      variables.first = parseInt(params.pagination.perPage, 10);
     }
 
     if (params.sort) {
