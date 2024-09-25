@@ -13,7 +13,12 @@ export const ExperienceList = () => (
   <List>
     <Datagrid>
       <GlobalIdTextField source="id" />
-      <ReferenceField source="operator.id" reference="User" label="Operator">
+      <ReferenceField
+        source="operator.id"
+        reference="User"
+        label="Operator"
+        sortable={false}
+      >
         <TextField source="name" />
       </ReferenceField>
       <TextField source="title" />
@@ -23,6 +28,7 @@ export const ExperienceList = () => (
         source="location.id"
         reference="Location"
         label="Location"
+        sortable={false}
       >
         <TextField source="postalCode" /> <TextField source="city" />
         <br />
@@ -33,12 +39,14 @@ export const ExperienceList = () => (
         reference="Category"
         source="categoriesIds"
         label="Categories"
+        sortable={false}
       />
 
       <ReferenceArrayField
         reference="Activity"
         source="activitiesIds"
         label="Activities"
+        sortable={false}
       />
     </Datagrid>
   </List>

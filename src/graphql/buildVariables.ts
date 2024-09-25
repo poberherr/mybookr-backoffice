@@ -302,8 +302,17 @@ const buildGetListVariables =
     }
 
     if (params.sort) {
-      variables.sortField = params.sort.field;
-      variables.sortOrder = params.sort.order;
+      if (
+        !params.sort.field.match(/Ids$/) &&
+        !params.sort.field.match(/.id$/)
+      ) {
+        variables.sortField = params.sort.field;
+        variables.sortOrder = params.sort.order;
+      } else {
+        alert(
+          "Sorry, we cant sort by references. Please disable sorting for this field.",
+        );
+      }
     }
 
     if (params.meta) variables = { ...variables, meta: params.meta };
@@ -356,4 +365,4 @@ const buildCreateUpdateVariables = (
     { id },
   );
 
-  export default buildVariables
+export default buildVariables;
