@@ -135,7 +135,7 @@ const prepareParams = (
   queryType: Partial<IntrospectionField>,
   introspectionResults: IntrospectionResult,
 ) => {
-  const result = {};
+  const result: { [key: string]: unknown } = {};
 
   if (!params) {
     return params;
@@ -266,6 +266,9 @@ const buildGetListVariables =
           const resourceField = resource.type.fields.find(
             (f) => f.name === parts[0],
           );
+          if (!resourceField) {
+            throw new Error("resourceField not found")
+          }
           const type = getFinalType(resourceField.type);
           return {
             ...acc,
