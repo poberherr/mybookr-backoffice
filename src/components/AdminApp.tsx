@@ -15,7 +15,9 @@ import {
   UPDATE,
   DELETE,
 } from "ra-core";
+import { SignInButton, useAuth } from "@clerk/nextjs";
 
+import buildVariables from "@/graphql/buildVariables";
 import buildGqlQuery from "@/graphql/buildGqlQuery";
 import getResponseParser from "@/graphql/getResponseParser";
 
@@ -27,12 +29,12 @@ import { MediaList } from "./lists/MediaList";
 import { PaymentList } from "./lists/PaymentList";
 import { BookingEdit } from "./edits/BookingEdit";
 import { LocationEdit } from "./edits/LocationEdit";
-import { SignInButton, useAuth } from "@clerk/nextjs";
+
 import { MyLayout } from "./MyLayout";
 import Dashboard from "./Dashboard";
 
 const buildQuery = buildQueryFactory(
-  undefined,
+  buildVariables,
   buildGqlQuery,
   getResponseParser,
 );

@@ -1,3 +1,5 @@
+// Based on: https://github.com/marmelab/react-admin/blob/master/packages/ra-data-graphql-simple/src/getResponseParser.ts
+
 import {
   DELETE_MANY,
   GET_LIST,

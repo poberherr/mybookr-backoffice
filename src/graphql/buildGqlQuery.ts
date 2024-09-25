@@ -1,3 +1,5 @@
+// based on https://github.com/marmelab/react-admin/blob/master/packages/ra-data-graphql-simple/src/buildGqlQuery.ts
+
 import {
   GET_LIST,
   GET_MANY,
@@ -5,6 +7,8 @@ import {
   DELETE,
   DELETE_MANY,
   UPDATE_MANY,
+  UPDATE,
+  CREATE,
 } from "ra-core";
 import {
   QUERY_TYPES,
@@ -93,12 +97,12 @@ const buildGqlQuery =
     let { sortField, sortOrder, ...metaVariables } = variables;
 
     const apolloArgs = buildApolloArgs(queryType, variables);
-    const args = buildArgs(queryType, variables);
+    const args = buildArgs(queryType, variables, raFetchMethod);
 
     const sparseFields = metaVariables.meta?.sparseFields;
     if (sparseFields) delete metaVariables.meta.sparseFields;
 
-    const metaArgs = buildArgs(queryType, metaVariables);
+    // const metaArgs = buildArgs(queryType, metaVariables, raFetchMethod);
 
     const fields = buildFields(introspectionResults)(
       resource.type.fields,
@@ -316,6 +320,7 @@ export const buildFragments =
 export const buildArgs = (
   query: IntrospectionField,
   variables: any,
+  raFetchMethod: string,
 ): ArgumentNode[] => {
   if (query.args.length === 0) {
     return [];
@@ -324,7 +329,8 @@ export const buildArgs = (
   const validVariables = Object.keys(variables).filter(
     (k) => typeof variables[k] !== "undefined",
   );
-  let args = query.args
+
+  const args = query.args
     .filter((a) => validVariables.includes(a.name))
     .reduce(
       // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
