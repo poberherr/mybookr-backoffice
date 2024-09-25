@@ -24,7 +24,8 @@ import { IntrospectionResult, IntrospectedResource } from "ra-data-graphql";
 import getFinalType from "ra-data-graphql-simple/dist/esm/getFinalType";
 import isList from "ra-data-graphql-simple/dist/esm/isList";
 
-const buildVariables = (introspectionResults: IntrospectionResult) =>
+const buildVariables =
+  (introspectionResults: IntrospectionResult) =>
   (
     resource: IntrospectedResource,
     raFetchMethod: string,
@@ -328,14 +329,10 @@ const buildCreateUpdateVariables = (
 ) =>
   Object.keys(data).reduce(
     (acc, key) => {
-      console.log({ acc, key, data: data[key] });
       if (Array.isArray(data[key])) {
         const arg = queryType.args.find((a) => a.name === `${key}Ids`);
 
         if (arg) {
-          console.log("setting", {
-            [`${key}Ids`]: data[key].map(({ id }) => id),
-          });
           return {
             ...acc,
             [`${key}Ids`]: data[key].map(({ id }) => id),
@@ -345,10 +342,8 @@ const buildCreateUpdateVariables = (
 
       if (typeof data[key] === "object") {
         const arg = Object.keys(data).find((argKey) => argKey === `${key}.id`);
-        console.log("is object", data[key], { arg }, queryType.args);
 
         if (arg) {
-          console.log("setting", { [key]: data[key].id });
           return {
             ...acc,
             [key]: data[key].id,
@@ -356,7 +351,6 @@ const buildCreateUpdateVariables = (
         }
       }
 
-      console.log('default behavior')
       return {
         ...acc,
         [key]: data[key],
