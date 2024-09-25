@@ -4,6 +4,7 @@ import {
   TextField,
   ReferenceField,
   WrapperField,
+  DateField,
 } from "react-admin";
 import { Stack } from "@mui/material";
 
@@ -16,16 +17,23 @@ export const BookingList = () => (
     <Datagrid>
       <GlobalIdTextField source="id" />
       <BookingStatusField source="status" />
+      <WrapperField label="Booking Date" sortBy="bookedDate">
+        <Stack>
+          <DateField source="bookedDate" />
+          <DateField source="bookedDate" showTime showDate={false} />
+        </Stack>
+      </WrapperField>
+
       <WrapperField label="Booker" sortBy="name">
         <Stack>
-          <TextField source="name" />
+          <TextField source="name" sx={{fontWeight: "bold"}}/>
           <Stack direction={"column"}>
             <TextField source="email" />
             <TextField source="telephone" />
           </Stack>
         </Stack>
       </WrapperField>
-      <TextField source="referenceCode" label="Booking Reference Code" />
+      <TextField source="referenceCode" label="Reference Code" />
 
       <PriceField source="totalCost" />
 
