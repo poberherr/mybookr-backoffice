@@ -8,8 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "npm run format:check -- -w",
-    "format:check": "prettier src"
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write src './*.{js,mjs,ts}'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.6.0",
@@ -26,16 +27,32 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20",
     "@types/pluralize": "^0.0.33",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "graphql-ast-types": "^1.0.2",
     "graphql-ast-types-browser": "^1.0.2",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "./*.{js,ts,mjs}": [
+      "eslint --fix"
+    ]
   }
 }
