@@ -1,6 +1,8 @@
 import * as React from "react";
-import { decodeGlobalId } from "@/helpers/global-ids";
+
 import { useRecordContext } from "react-admin";
+
+import { decodeGlobalId } from "@/helpers/global-ids";
 
 const GlobalIdTextField = ({ source }: { source: string }) => {
   const record = useRecordContext();

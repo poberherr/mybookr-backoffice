@@ -1,8 +1,7 @@
 "use client";
 
-import buildGqlQuery from "@/graphql/buildGqlQuery";
-import buildVariables from "@/graphql/buildVariables";
-import getResponseParser from "@/graphql/getResponseParser";
+import { useEffect, useMemo, useState } from "react";
+
 import { SignInButton, useAuth } from "@clerk/nextjs";
 import {
   CREATE,
@@ -16,7 +15,6 @@ import {
 import buildGraphQLProvider, {
   buildQueryFactory,
 } from "ra-data-graphql-simple";
-import { useEffect, useMemo, useState } from "react";
 import {
   Admin,
   CustomRoutes,
@@ -25,6 +23,10 @@ import {
   Resource,
 } from "react-admin";
 import { Route } from "react-router-dom";
+
+import buildGqlQuery from "@/graphql/buildGqlQuery";
+import buildVariables from "@/graphql/buildVariables";
+import getResponseParser from "@/graphql/getResponseParser";
 
 import Dashboard from "./Dashboard";
 import { BookingEdit } from "./edits/BookingEdit";

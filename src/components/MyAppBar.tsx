@@ -1,8 +1,11 @@
 import * as React from "react";
-import Logo from "@/assets/mybookr.svg";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+
 import Box from "@mui/material/Box";
+
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { AppBar, Link, TitlePortal } from "react-admin";
+
+import Logo from "@/assets/mybookr.svg";
 
 export const MyAppBar = () => (
   <AppBar>

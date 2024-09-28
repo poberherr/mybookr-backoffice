@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { NumberInput, NumberInputProps } from "react-admin";
 
 const DollarInput = (props: NumberInputProps) => (

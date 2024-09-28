@@ -1,7 +1,9 @@
+import React, { useCallback, useState } from "react";
+
 import { Box, Typography } from "@mui/material";
+
 import { MapMouseEvent } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { useCallback, useState } from "react";
 import { useInput } from "react-admin";
 import Map, { Marker } from "react-map-gl";
 

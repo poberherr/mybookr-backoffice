@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import markdownit from "markdown-it";
 import truncateMarkdown from "markdown-truncate";
 import { useRecordContext } from "react-admin";

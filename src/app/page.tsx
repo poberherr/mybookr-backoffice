@@ -1,6 +1,7 @@
+import { Suspense } from "react";
+
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
 
 const AdminApp = dynamic(() => import("@/components/AdminApp"), { ssr: false });
 
