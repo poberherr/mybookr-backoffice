@@ -40,6 +40,7 @@ import getResponseParser from "@/graphql/getResponseParser";
 
 import Dashboard from "./Dashboard";
 import { BookingEdit } from "./edits/BookingEdit";
+import { CategoryEdit } from "./edits/CategoryEdit";
 import { LocationEdit } from "./edits/LocationEdit";
 import { ActivityList } from "./lists/ActivityList";
 import { BookingList } from "./lists/BookingList";
@@ -146,7 +147,7 @@ const AdminApp = () => {
       <Resource
         name="Category"
         list={CategoryList}
-        edit={EditGuesser}
+        edit={CategoryEdit}
         icon={FolderSpecialIcon}
         recordRepresentation="name"
       />
