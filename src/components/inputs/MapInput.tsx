@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from "react";
-import { useInput } from "react-admin";
 import { Box, Typography } from "@mui/material";
-
-import Map, { Marker } from "react-map-gl";
 import { MapMouseEvent } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import React, { useCallback, useState } from "react";
+import { useInput } from "react-admin";
+import Map, { Marker } from "react-map-gl";
 
 const MapInput = () => {
   const { field: fieldLatitude } = useInput({ source: "latitude" });
@@ -17,7 +16,7 @@ const MapInput = () => {
 
   const onMapClick = useCallback(
     (event: MapMouseEvent) => {
-      const {lng, lat} = event.lngLat;
+      const { lng, lat } = event.lngLat;
       setMarkerPosition({ latitude: lat, longitude: lng });
       fieldLatitude.onChange(lat);
       fieldLongitude.onChange(lng);

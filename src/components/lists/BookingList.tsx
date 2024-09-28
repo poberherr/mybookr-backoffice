@@ -1,15 +1,15 @@
-import {
-  List,
-  Datagrid,
-  TextField,
-  ReferenceField,
-  WrapperField,
-  DateField,
-} from "react-admin";
 import { Stack } from "@mui/material";
+import {
+  Datagrid,
+  DateField,
+  List,
+  ReferenceField,
+  TextField,
+  WrapperField,
+} from "react-admin";
 
-import GlobalIdTextField from "../fields/GlobalIdTextField";
 import BookingStatusField from "../fields/BookingStatusField";
+import GlobalIdTextField from "../fields/GlobalIdTextField";
 import PriceField from "../fields/PriceField";
 
 export const BookingList = () => (
@@ -26,7 +26,7 @@ export const BookingList = () => (
 
       <WrapperField label="Booker" sortBy="name">
         <Stack>
-          <TextField source="name" sx={{fontWeight: "bold"}}/>
+          <TextField source="name" sx={{ fontWeight: "bold" }} />
           <Stack direction={"column"}>
             <TextField source="email" />
             <TextField source="telephone" />

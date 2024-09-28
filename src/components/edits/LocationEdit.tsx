@@ -1,4 +1,5 @@
 import { Edit, SimpleForm, TextInput } from "react-admin";
+
 import MapInput from "../inputs/MapInput";
 
 export const LocationEdit = () => (

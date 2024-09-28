@@ -7,13 +7,13 @@ const PriceField = ({ source }: { source: string }) => {
   const currency = record?.currency || "USD";
 
   try {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency }).format(
-        price / 100
-      );
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency,
+    }).format(price / 100);
   } catch {
     return `${price / 100} ${currency}`;
   }
-
 };
 
 export default PriceField;

@@ -1,10 +1,10 @@
 import {
-  List,
   Datagrid,
-  TextField,
+  List,
   NumberField,
-  ReferenceField,
   ReferenceArrayField,
+  ReferenceField,
+  TextField,
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";

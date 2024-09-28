@@ -9,18 +9,17 @@ import {
   IntrospectionType,
 } from "graphql";
 import {
-  GET_LIST,
-  GET_ONE,
-  GET_MANY,
-  GET_MANY_REFERENCE,
   CREATE,
-  UPDATE,
   DELETE,
   DELETE_MANY,
+  GET_LIST,
+  GET_MANY,
+  GET_MANY_REFERENCE,
+  GET_ONE,
+  UPDATE,
   UPDATE_MANY,
 } from "ra-core";
-import { IntrospectionResult, IntrospectedResource } from "ra-data-graphql";
-
+import { IntrospectedResource, IntrospectionResult } from "ra-data-graphql";
 import getFinalType from "ra-data-graphql-simple/dist/esm/getFinalType";
 import isList from "ra-data-graphql-simple/dist/esm/isList";
 
@@ -52,7 +51,7 @@ const buildVariables =
           ...(preparedParams.meta ? { meta: preparedParams.meta } : {}),
         };
       case GET_MANY_REFERENCE: {
-        let variables = buildGetListVariables(introspectionResults)(
+        const variables = buildGetListVariables(introspectionResults)(
           resource,
           raFetchMethod,
           preparedParams,
@@ -267,7 +266,7 @@ const buildGetListVariables =
             (f) => f.name === parts[0],
           );
           if (!resourceField) {
-            throw new Error("resourceField not found")
+            throw new Error("resourceField not found");
           }
           const type = getFinalType(resourceField.type);
           return {

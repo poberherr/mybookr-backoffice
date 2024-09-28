@@ -1,8 +1,8 @@
-import { List, Datagrid, TextField, ChipField, DateField } from "react-admin";
+import { ChipField, Datagrid, DateField, List, TextField } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
-import PriceField from "../fields/PriceField";
 import PaymentStatusField from "../fields/PaymentStatusField";
+import PriceField from "../fields/PriceField";
 
 export const PaymentList = () => (
   <List>
@@ -16,5 +16,3 @@ export const PaymentList = () => (
     </Datagrid>
   </List>
 );
-
-

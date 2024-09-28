@@ -1,20 +1,16 @@
 import * as React from "react";
-import { AppBar, Link, TitlePortal } from "react-admin";
-import Box from "@mui/material/Box";
-
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-
 import Logo from "@/assets/mybookr.svg";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import Box from "@mui/material/Box";
+import { AppBar, Link, TitlePortal } from "react-admin";
 
 export const MyAppBar = () => (
   <AppBar>
     <TitlePortal />
-    <Link to={"/"} style={{color: 'inherit', display: "inline-block", lineHeight: "0"}}>
+    <Link
+      to={"/"}
+      style={{ color: "inherit", display: "inline-block", lineHeight: "0" }}
+    >
       <Logo style={{ width: 160 }} />
     </Link>
     <Box flex="1" />

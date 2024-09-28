@@ -1,37 +1,41 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
-import { Admin, Resource, ListGuesser, EditGuesser, CustomRoutes } from "react-admin";
-import { Route } from "react-router-dom";
+
+import buildGqlQuery from "@/graphql/buildGqlQuery";
+import buildVariables from "@/graphql/buildVariables";
+import getResponseParser from "@/graphql/getResponseParser";
+import { SignInButton, useAuth } from "@clerk/nextjs";
+import {
+  CREATE,
+  DELETE,
+  GET_LIST,
+  GET_MANY,
+  GET_MANY_REFERENCE,
+  GET_ONE,
+  UPDATE,
+} from "ra-core";
 import buildGraphQLProvider, {
   buildQueryFactory,
 } from "ra-data-graphql-simple";
-
+import { useEffect, useMemo, useState } from "react";
 import {
-  GET_LIST,
-  GET_ONE,
-  GET_MANY,
-  GET_MANY_REFERENCE,
-  CREATE,
-  UPDATE,
-  DELETE,
-} from "ra-core";
-import { SignInButton, useAuth } from "@clerk/nextjs";
+  Admin,
+  CustomRoutes,
+  EditGuesser,
+  ListGuesser,
+  Resource,
+} from "react-admin";
+import { Route } from "react-router-dom";
 
-import buildVariables from "@/graphql/buildVariables";
-import buildGqlQuery from "@/graphql/buildGqlQuery";
-import getResponseParser from "@/graphql/getResponseParser";
-
-import { ExperienceList } from "./lists/ExperienceList";
-import { CategoryList } from "./lists/CategoryList";
-import { BookingList } from "./lists/BookingList";
-import { ActivityList } from "./lists/ActivityList";
-import { MediaList } from "./lists/MediaList";
-import { PaymentList } from "./lists/PaymentList";
+import Dashboard from "./Dashboard";
 import { BookingEdit } from "./edits/BookingEdit";
 import { LocationEdit } from "./edits/LocationEdit";
-
+import { ActivityList } from "./lists/ActivityList";
+import { BookingList } from "./lists/BookingList";
+import { CategoryList } from "./lists/CategoryList";
+import { ExperienceList } from "./lists/ExperienceList";
+import { MediaList } from "./lists/MediaList";
+import { PaymentList } from "./lists/PaymentList";
 import { MyLayout } from "./MyLayout";
-import Dashboard from "./Dashboard";
 
 const buildQuery = buildQueryFactory(
   buildVariables,

@@ -1,3 +1,4 @@
+import { Stack } from "@mui/material";
 import {
   Edit,
   ReferenceField,
@@ -7,8 +8,8 @@ import {
   TextField,
   TextInput,
 } from "react-admin";
+
 import GlobalIdTextField from "../fields/GlobalIdTextField";
-import { Stack } from "@mui/material";
 import DollarInput from "../inputs/DollarInput";
 
 export const BookingEdit = () => (
@@ -30,7 +31,8 @@ export const BookingEdit = () => (
           <strong>Reference Code:</strong> <TextField source="referenceCode" />
         </div>
         <div>
-          <strong>Activity:</strong> <ReferenceField source="activity.id" reference="Activity"/>
+          <strong>Activity:</strong>{" "}
+          <ReferenceField source="activity.id" reference="Activity" />
         </div>
         <div>
           <strong>Booking Date:</strong> @todo

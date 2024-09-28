@@ -1,4 +1,4 @@
-import { List, Datagrid, TextField, ImageField } from "react-admin";
+import { Datagrid, ImageField, List, TextField } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 

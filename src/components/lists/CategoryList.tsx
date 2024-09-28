@@ -1,12 +1,12 @@
 import {
-  List,
-  Datagrid,
-  TextField,
-  NumberField,
-  DateField,
-  ReferenceField,
-  ReferenceArrayField,
   ChipField,
+  Datagrid,
+  DateField,
+  List,
+  NumberField,
+  ReferenceArrayField,
+  ReferenceField,
+  TextField,
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";

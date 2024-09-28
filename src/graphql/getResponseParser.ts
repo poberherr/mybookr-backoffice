@@ -1,5 +1,6 @@
 // Based on: https://github.com/marmelab/react-admin/blob/master/packages/ra-data-graphql-simple/src/getResponseParser.ts
-
+import { ApolloQueryResult } from "@apollo/client";
+import { IntrospectionField } from "graphql";
 import {
   DELETE_MANY,
   GET_LIST,
@@ -7,11 +8,10 @@ import {
   GET_MANY_REFERENCE,
   UPDATE_MANY,
 } from "ra-core";
-import { IntrospectionResult, IntrospectedResource } from "ra-data-graphql";
-import { IntrospectionField } from "graphql";
-import { ApolloQueryResult } from "@apollo/client";
+import { IntrospectedResource, IntrospectionResult } from "ra-data-graphql";
 
-const getResponseParser = (_introspectionResults: IntrospectionResult) =>
+const getResponseParser =
+  (_introspectionResults: IntrospectionResult) =>
   (
     raFetchMethod: string,
     _resource: IntrospectedResource,
@@ -42,7 +42,7 @@ const getResponseParser = (_introspectionResults: IntrospectionResult) =>
     return { data: sanitizeResource(data.data) };
   };
 
-  // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
+// @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
 const sanitizeResource = (data: unknown) => {
   // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
   const result = Object.keys(data).reduce((acc, key) => {
@@ -98,4 +98,4 @@ const sanitizeResource = (data: unknown) => {
   return result;
 };
 
-export default getResponseParser
+export default getResponseParser;

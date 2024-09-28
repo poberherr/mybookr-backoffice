@@ -1,20 +1,5 @@
 // based on https://github.com/marmelab/react-admin/blob/master/packages/ra-data-graphql-simple/src/buildGqlQuery.ts
-
-import {
-  GET_LIST,
-  GET_MANY,
-  GET_MANY_REFERENCE,
-  DELETE,
-  DELETE_MANY,
-  UPDATE_MANY,
-  UPDATE,
-  CREATE,
-} from "ra-core";
-import {
-  QUERY_TYPES,
-  IntrospectionResult,
-  IntrospectedResource,
-} from "ra-data-graphql";
+import * as gqlTypes from "graphql-ast-types-browser";
 import {
   ArgumentNode,
   IntrospectionField,
@@ -24,9 +9,19 @@ import {
   TypeKind,
   VariableDefinitionNode,
 } from "graphql";
-
-import * as gqlTypes from "graphql-ast-types-browser";
-
+import {
+  DELETE,
+  DELETE_MANY,
+  GET_LIST,
+  GET_MANY,
+  GET_MANY_REFERENCE,
+  UPDATE_MANY,
+} from "ra-core";
+import {
+  IntrospectedResource,
+  IntrospectionResult,
+  QUERY_TYPES,
+} from "ra-data-graphql";
 import getFinalType from "ra-data-graphql-simple/dist/esm/getFinalType";
 import { getGqlType } from "ra-data-graphql-simple/dist/esm/getGqlType";
 
@@ -94,7 +89,7 @@ const buildGqlQuery =
     queryType: IntrospectionField,
     variables: any,
   ) => {
-    let { sortField, sortOrder, ...metaVariables } = variables;
+    const { sortField, sortOrder, ...metaVariables } = variables;
 
     const apolloArgs = buildApolloArgs(queryType, variables);
     const args = buildArgs(queryType, variables, raFetchMethod);
@@ -359,7 +354,7 @@ export const buildApolloArgs = (
     (k) => typeof variables[k] !== "undefined",
   );
 
-  let args = query.args
+  const args = query.args
     .filter((a) => validVariables.includes(a.name))
     // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
     .reduce((acc, arg) => {

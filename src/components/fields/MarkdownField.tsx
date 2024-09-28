@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useRecordContext } from "react-admin";
 import markdownit from "markdown-it";
 import truncateMarkdown from "markdown-truncate";
+import { useRecordContext } from "react-admin";
 
 const md = markdownit();
 
@@ -28,7 +28,7 @@ const MarkdownTextField = ({
   }, [text, maxLength]);
 
   return (
-    <span title={text} dangerouslySetInnerHTML={{ __html: renderedMarkdown }}/>
+    <span title={text} dangerouslySetInnerHTML={{ __html: renderedMarkdown }} />
   );
 };
 
