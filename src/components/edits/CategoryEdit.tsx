@@ -5,15 +5,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateIcon from "@mui/icons-material/Update";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 
+import { Category } from "@/gql/graphql";
 import {
   ChipField,
   DateField,
   Edit,
   NumberInput,
   ReferenceArrayField,
-  ReferenceArrayInput,
   ReferenceField,
-  SelectInput,
   SimpleForm,
   TextInput,
   useRecordContext,
@@ -22,17 +21,35 @@ import {
 import { decodeGlobalId } from "@/helpers/global-ids";
 
 const CategoryAside: React.FC = () => {
-  const record = useRecordContext();
+  const record = useRecordContext<
+    Category & {
+      "parent.id": string;
+      childrenIds: string[];
+    }
+  >();
+
+  if (!record) {
+    return null;
+  }
 
   return (
     <Box width={300} ml={2}>
       <Typography variant="h6" mb="4">
-        Depth: {record?.depth}
+        Id: {decodeGlobalId(record.id).id}
       </Typography>
-      <Typography variant="h6">Parent</Typography>
+      <Divider />
+      <Typography variant="h6" mb="4">
+        Global Id: {record.id}
+      </Typography>
+      <Divider />
+      <Typography variant="h6" mb="4">
+        Depth: {record.depth}
+      </Typography>
+      <Divider />
+      <Typography variant="h6">Parent:</Typography>
       <Divider />
       <Box my={2}>
-        {record && record["parent.id"] ? (
+        {record["parent.id"] ? (
           <ReferenceField source="parent.id" reference="Category">
             <ChipField source="name" />
           </ReferenceField>
@@ -41,7 +58,7 @@ const CategoryAside: React.FC = () => {
         )}
       </Box>
 
-      <Typography variant="h6">Children</Typography>
+      <Typography variant="h6">Children:</Typography>
       <Divider />
       <Box my={2}>
         {record && record["childrenIds"] ? (
@@ -55,7 +72,7 @@ const CategoryAside: React.FC = () => {
         )}
       </Box>
 
-      <Typography variant="h6">Timestamps</Typography>
+      <Typography variant="h6">Timestamps:</Typography>
       <Divider />
       <Stack spacing={2} mt={2}>
         <Stack direction="row" alignItems="center" spacing={1}>
@@ -66,13 +83,19 @@ const CategoryAside: React.FC = () => {
           <UpdateIcon />
           <DateField source="updatedAt" label="Updated at" showTime />
         </Stack>
-        {record?.deletedAt && (
+        {record.deletedAt && (
           <Stack direction="row" alignItems="center" spacing={1}>
             <DeleteIcon />
             <DateField source="deletedAt" label="Deleted at" showTime />
           </Stack>
         )}
       </Stack>
+
+      <Typography variant="h6">Debug:</Typography>
+      <Divider />
+      <pre style={{ fontSize: "0.8em", maxWidth: "100%", padding: "0.5rem" }}>
+        <code>{JSON.stringify(record, null, 2)}</code>
+      </pre>
     </Box>
   );
 };
@@ -80,36 +103,9 @@ const CategoryAside: React.FC = () => {
 export const CategoryEdit: React.FC = () => (
   <Edit aside={<CategoryAside />}>
     <SimpleForm>
-      {/* Basic Details */}
-      <TextInput
-        source="id"
-        label="Category ID"
-        disabled
-        fullWidth
-        format={(v) => decodeGlobalId(v).id}
-      />
-      <TextInput source="name" label="Category Name" fullWidth />
       <TextInput source="path" label="Category Path" fullWidth />
       <NumberInput source="weight" label="Sort Weight" fullWidth />
-
-      {/* Relations */}
-      <Typography variant="h6" mt={4}>
-        Relations
-      </Typography>
-      <Divider />
-      <Box mt={2}>
-        <ReferenceArrayInput
-          source="childrenIds"
-          reference="Category"
-          label="Children Categories"
-          format={(value) => value.map((v: any) => v.id)}
-          parse={(value) => value.map((v: any) => ({ id: v }))}
-        >
-          <SelectInput
-            optionText={(record) => `${record.path} - ${record.name}`}
-          />
-        </ReferenceArrayInput>
-      </Box>
+      <TextInput source="name" label="Category Name" fullWidth />
     </SimpleForm>
   </Edit>
 );
