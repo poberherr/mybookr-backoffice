@@ -1,5 +1,10 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript", "plugin:prettier/recommended"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-explicit-any": "warn",
@@ -15,5 +20,5 @@
     ],
     "prefer-const": "warn"
   },
-  "plugins": ["unused-imports"]
+  "plugins": ["@typescript-eslint", "unused-imports"]
 }
