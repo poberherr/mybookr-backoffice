@@ -8,11 +8,14 @@ import {
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
+import { createUpdateDeleteComboField } from "../fields/SmartDateField";
 
 export const ExperienceList = () => (
   <List>
     <Datagrid>
       <GlobalIdTextField source="id" />
+      {createUpdateDeleteComboField}
+
       <ReferenceField
         source="operator.id"
         reference="User"

@@ -13,7 +13,6 @@ import { NodeMouseEventHandler, ResponsiveTree } from "@nivo/tree";
 import {
   ChipField,
   Datagrid,
-  DateField,
   FilterButton,
   List,
   NumberField,
@@ -30,6 +29,7 @@ import { encodeGlobalId } from "@/helpers/global-ids";
 import { Category, TreeNode, useTreeData } from "@/helpers/ltree";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
+import { createUpdateDeleteComboField } from "../fields/SmartDateField";
 
 const categoryFilters = [<SearchInput source="q" alwaysOn key="q" />];
 
@@ -107,13 +107,12 @@ export const CategoryList = () => {
         <List actions={<CategoryListActions />} filters={categoryFilters}>
           <Datagrid>
             <GlobalIdTextField source="id" />
+            {createUpdateDeleteComboField}
             <TextField source="path" />
             <NumberField source="depth" />
             <NumberField source="weight" />
             <TextField source="name" />
-            <DateField source="createdAt" />
-            <DateField source="updatedAt" />
-            <DateField source="deletedAt" />
+
             <ReferenceField
               source="parent.id"
               reference="Category"
@@ -122,9 +121,9 @@ export const CategoryList = () => {
               <ChipField source="name" />
             </ReferenceField>
             <ReferenceArrayField
-              source="children"
+              source="childrenIds"
               reference="Category"
-              label="Categories"
+              label="Children"
             />
           </Datagrid>
         </List>

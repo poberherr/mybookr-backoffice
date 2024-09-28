@@ -12,11 +12,13 @@ import {
 import BookingStatusField from "../fields/BookingStatusField";
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import PriceField from "../fields/PriceField";
+import { createUpdateDeleteComboField } from "../fields/SmartDateField";
 
 export const BookingList = () => (
   <List>
     <Datagrid>
       <GlobalIdTextField source="id" />
+      {createUpdateDeleteComboField}
       <BookingStatusField source="status" />
       <WrapperField label="Booking Date" sortBy="bookedDate">
         <Stack>
