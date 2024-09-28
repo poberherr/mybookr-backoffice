@@ -47,7 +47,12 @@ const buildVariables =
       }
       case GET_MANY:
         return {
-          filter: { ids: preparedParams.ids },
+          filter: {
+            // For some reason we get the first and last item as string, the others as objects.. lets fix this
+            ids: preparedParams.ids.map((id: string | { id: string }) =>
+              typeof id === "object" ? id.id : id,
+            ),
+          },
           ...(preparedParams.meta ? { meta: preparedParams.meta } : {}),
         };
       case GET_MANY_REFERENCE: {
