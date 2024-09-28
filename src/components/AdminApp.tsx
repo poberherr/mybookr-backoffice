@@ -102,6 +102,20 @@ const AdminApp = () => {
   return (
     <Admin dataProvider={dataProvider} layout={MyLayout}>
       <Resource
+        name="Booking"
+        list={BookingList}
+        edit={BookingEdit}
+        icon={ReceiptIcon}
+        recordRepresentation="id"
+      />
+      <Resource
+        name="Payment"
+        list={PaymentList}
+        edit={EditGuesser}
+        icon={CreditCardIcon}
+        recordRepresentation="name"
+      />
+      <Resource
         name="Experience"
         list={ExperienceList}
         edit={EditGuesser}
@@ -116,18 +130,11 @@ const AdminApp = () => {
         recordRepresentation="title"
       />
       <Resource
-        name="Booking"
-        list={BookingList}
-        edit={BookingEdit}
-        icon={ReceiptIcon}
-        recordRepresentation="id"
-      />
-      <Resource
-        name="Category"
-        list={CategoryList}
+        name="Media"
+        list={MediaList}
         edit={EditGuesser}
-        icon={FolderSpecialIcon}
-        recordRepresentation="name"
+        icon={PhotoLibraryIcon}
+        recordRepresentation="title"
       />
       <Resource
         name="Location"
@@ -137,24 +144,10 @@ const AdminApp = () => {
         recordRepresentation="addressLineOne"
       />
       <Resource
-        name="Media"
-        list={MediaList}
+        name="Category"
+        list={CategoryList}
         edit={EditGuesser}
-        icon={PhotoLibraryIcon}
-        recordRepresentation="title"
-      />
-      <Resource
-        name="Operator"
-        list={ListGuesser}
-        edit={EditGuesser}
-        icon={SettingsAccessibilityIcon}
-        recordRepresentation="name"
-      />
-      <Resource
-        name="Payment"
-        list={PaymentList}
-        edit={EditGuesser}
-        icon={CreditCardIcon}
+        icon={FolderSpecialIcon}
         recordRepresentation="name"
       />
       <Resource
@@ -162,6 +155,13 @@ const AdminApp = () => {
         list={ListGuesser}
         edit={EditGuesser}
         icon={PersonIcon}
+        recordRepresentation="name"
+      />
+      <Resource
+        name="Operator"
+        list={ListGuesser}
+        edit={EditGuesser}
+        icon={SettingsAccessibilityIcon}
         recordRepresentation="name"
       />
       <CustomRoutes>
