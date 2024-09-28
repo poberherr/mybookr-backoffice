@@ -38,7 +38,7 @@ export const SmartDateField: React.FC<{
   }).format(new Date(date));
 
   return (
-    <Tooltip title={`${label} ${tooltipDate}`} arrow>
+    <Tooltip title={`${label} ${tooltipDate}`} arrow placement="right">
       <Stack direction="row" alignItems="center" spacing={1}>
         {icon}
         <span>{displayDate}</span>
