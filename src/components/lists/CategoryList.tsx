@@ -105,7 +105,11 @@ export const CategoryList = () => {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        <List actions={<CategoryListActions />} filters={categoryFilters}>
+        <List
+          actions={<CategoryListActions />}
+          filters={categoryFilters}
+          sort={{ field: "path", order: "ASC" }}
+        >
           <Datagrid>
             <GlobalIdTextField source="id" />
             <TextField source="path" />
