@@ -2,6 +2,16 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import Diversity2Icon from "@mui/icons-material/Diversity2";
+import FolderSpecialIcon from "@mui/icons-material/FolderSpecial";
+import LocalActivityIcon from "@mui/icons-material/LocalActivity";
+import PersonIcon from "@mui/icons-material/Person";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import PlaceIcon from "@mui/icons-material/Place";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
+
 import { SignInButton, useAuth } from "@clerk/nextjs";
 import {
   CREATE,
@@ -95,54 +105,63 @@ const AdminApp = () => {
         name="Experience"
         list={ExperienceList}
         edit={EditGuesser}
+        icon={Diversity2Icon}
+        recordRepresentation="title"
+      />
+      <Resource
+        name="Activity"
+        list={ActivityList}
+        edit={EditGuesser}
+        icon={LocalActivityIcon}
         recordRepresentation="title"
       />
       <Resource
         name="Booking"
         list={BookingList}
         edit={BookingEdit}
+        icon={ReceiptIcon}
         recordRepresentation="id"
-      />
-      <Resource
-        name="Activity"
-        list={ActivityList}
-        edit={EditGuesser}
-        recordRepresentation="title"
       />
       <Resource
         name="Category"
         list={CategoryList}
         edit={EditGuesser}
+        icon={FolderSpecialIcon}
         recordRepresentation="name"
       />
       <Resource
         name="Location"
         list={ListGuesser}
         edit={LocationEdit}
+        icon={PlaceIcon}
         recordRepresentation="addressLineOne"
       />
       <Resource
         name="Media"
         list={MediaList}
         edit={EditGuesser}
+        icon={PhotoLibraryIcon}
         recordRepresentation="title"
       />
       <Resource
         name="Operator"
         list={ListGuesser}
         edit={EditGuesser}
+        icon={SettingsAccessibilityIcon}
         recordRepresentation="name"
       />
       <Resource
         name="Payment"
         list={PaymentList}
         edit={EditGuesser}
+        icon={CreditCardIcon}
         recordRepresentation="name"
       />
       <Resource
         name="User"
         list={ListGuesser}
         edit={EditGuesser}
+        icon={PersonIcon}
         recordRepresentation="name"
       />
       <CustomRoutes>
