@@ -20,7 +20,7 @@ export const ActivityList = () => (
       <TextField source="slug" />
       <PriceField source="price" />
       <MarkdownTextField source="description" maxLength={42} />
-      <SmartDateField label="Updated" />
+      <SmartDateField label="Updated" sortBy="updatedAt" />
     </Datagrid>
   </List>
 );

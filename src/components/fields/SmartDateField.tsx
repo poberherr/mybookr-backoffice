@@ -2,7 +2,7 @@ import React from "react";
 
 import { Stack, Tooltip } from "@mui/material";
 
-import { useRecordContext } from "react-admin";
+import { FieldProps, useRecordContext } from "react-admin";
 
 const formatDate = (date: string | Date | undefined): string => {
   if (!date) return "N/A";
@@ -18,9 +18,7 @@ const formatDate = (date: string | Date | undefined): string => {
   }).format(new Date(date));
 };
 
-export const SmartDateField: React.FC<{
-  label: string;
-}> = ({ label }) => {
+export const SmartDateField: React.FC<Omit<FieldProps, "source">> = () => {
   const record = useRecordContext<{
     createdAt: string;
     updatedAt: string;
@@ -47,17 +45,7 @@ export const SmartDateField: React.FC<{
   ].filter(Boolean);
 
   return (
-    <Tooltip
-      title={
-        tooltipContent ? (
-          <Stack>{tooltipContent}</Stack>
-        ) : (
-          `${label} ${displayDate}`
-        )
-      }
-      arrow
-      placement="right"
-    >
+    <Tooltip title={<Stack>{tooltipContent}</Stack>} arrow placement="right">
       <span>{displayDate}</span>
     </Tooltip>
   );

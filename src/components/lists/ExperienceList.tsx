@@ -14,7 +14,6 @@ export const ExperienceList = () => (
   <List>
     <Datagrid>
       <GlobalIdTextField source="id" />
-      {createUpdateDeleteComboField}
 
       <ReferenceField
         source="operator.id"
@@ -52,7 +51,7 @@ export const ExperienceList = () => (
         sortable={false}
       />
 
-      <SmartDateField label="Updated" />
+      <SmartDateField label="Updated" sortBy="updatedAt" />
     </Datagrid>
   </List>
 );

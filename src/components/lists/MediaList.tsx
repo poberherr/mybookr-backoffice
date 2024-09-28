@@ -16,7 +16,7 @@ export const MediaList = () => (
       <TextField source="height" />
       <TextField source="mediaType" />
 
-      <SmartDateField label="Updated" />
+      <SmartDateField label="Updated" sortBy="updatedAt" />
     </Datagrid>
   </List>
 );

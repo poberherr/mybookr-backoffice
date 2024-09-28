@@ -47,7 +47,7 @@ export const BookingList = () => (
         <TextField source="title" />
       </ReferenceField>
 
-      <SmartDateField label="Updated" />
+      <SmartDateField label="Updated" sortBy="updatedAt" />
     </Datagrid>
   </List>
 );

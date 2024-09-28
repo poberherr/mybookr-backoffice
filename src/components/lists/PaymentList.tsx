@@ -15,7 +15,7 @@ export const PaymentList = () => (
       <TextField source="externalPaymentId" />
       <ChipField source="paymentProvider" />
       <TextField source="mediaType" />
-      <SmartDateField label="Updated" />
+      <SmartDateField label="Updated" sortBy="updatedAt" />
     </Datagrid>
   </List>
 );

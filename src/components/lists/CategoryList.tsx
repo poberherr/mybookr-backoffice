@@ -125,7 +125,7 @@ export const CategoryList = () => {
               reference="Category"
               label="Children"
             />
-            <SmartDateField label="Updated" />
+            <SmartDateField label="Updated" sortBy="updatedAt" />
           </Datagrid>
         </List>
       </CustomTabPanel>
