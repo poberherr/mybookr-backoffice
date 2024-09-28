@@ -1,21 +1,14 @@
-import {
-  Datagrid,
-  List,
-  NumberField,
-  ReferenceField,
-  TextField,
-} from "react-admin";
+import { Datagrid, List, ReferenceField, TextField } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import MarkdownTextField from "../fields/MarkdownField";
 import PriceField from "../fields/PriceField";
-import { createUpdateDeleteComboField } from "../fields/SmartDateField";
+import { SmartDateField } from "../fields/SmartDateField";
 
 export const ActivityList = () => (
   <List>
     <Datagrid>
       <GlobalIdTextField source="id" />
-      {createUpdateDeleteComboField}
       <ReferenceField
         source="experience.id"
         reference="Experience"
@@ -27,7 +20,7 @@ export const ActivityList = () => (
       <TextField source="slug" />
       <PriceField source="price" />
       <MarkdownTextField source="description" maxLength={42} />
-      <NumberField source="guestMax" label="Maximum Guests" />
+      <SmartDateField label="Updated" />
     </Datagrid>
   </List>
 );

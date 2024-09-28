@@ -1,14 +1,8 @@
 import { useMemo } from "react";
 
-import { decodeGlobalId } from "./global-ids";
+import { Category } from "@/gql/graphql";
 
-export interface Category {
-  id: string;
-  path: string;
-  name: string;
-  weight: number;
-  value: number;
-}
+import { decodeGlobalId } from "./global-ids";
 
 export interface TreeNode {
   id: number;

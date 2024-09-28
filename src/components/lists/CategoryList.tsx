@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 
+import { Category } from "@/gql/graphql";
 import { MouseHandler, ResponsiveSunburst } from "@nivo/sunburst";
 import { NodeMouseEventHandler, ResponsiveTree } from "@nivo/tree";
 import {
@@ -26,10 +27,10 @@ import { CreateButton, ExportButton, TopToolbar } from "react-admin";
 import { useNavigate } from "react-router-dom";
 
 import { encodeGlobalId } from "@/helpers/global-ids";
-import { Category, TreeNode, useTreeData } from "@/helpers/ltree";
+import { TreeNode, useTreeData } from "@/helpers/ltree";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
-import { createUpdateDeleteComboField } from "../fields/SmartDateField";
+import { SmartDateField } from "../fields/SmartDateField";
 
 const categoryFilters = [<SearchInput source="q" alwaysOn key="q" />];
 
@@ -107,7 +108,6 @@ export const CategoryList = () => {
         <List actions={<CategoryListActions />} filters={categoryFilters}>
           <Datagrid>
             <GlobalIdTextField source="id" />
-            {createUpdateDeleteComboField}
             <TextField source="path" />
             <NumberField source="depth" />
             <NumberField source="weight" />
@@ -125,6 +125,7 @@ export const CategoryList = () => {
               reference="Category"
               label="Children"
             />
+            <SmartDateField label="Updated" />
           </Datagrid>
         </List>
       </CustomTabPanel>

@@ -8,7 +8,7 @@ import {
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
-import { createUpdateDeleteComboField } from "../fields/SmartDateField";
+import { SmartDateField } from "../fields/SmartDateField";
 
 export const ExperienceList = () => (
   <List>
@@ -51,6 +51,8 @@ export const ExperienceList = () => (
         label="Activities"
         sortable={false}
       />
+
+      <SmartDateField label="Updated" />
     </Datagrid>
   </List>
 );

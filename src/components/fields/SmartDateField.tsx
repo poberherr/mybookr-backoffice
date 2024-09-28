@@ -1,70 +1,64 @@
 import React from "react";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import HourglassTopIcon from "@mui/icons-material/HourglassTop";
-import UpdateIcon from "@mui/icons-material/Update";
 import { Stack, Tooltip } from "@mui/material";
 
-import { useRecordContext, WrapperField } from "react-admin";
+import { useRecordContext } from "react-admin";
 
-export const SmartDateField: React.FC<{
-  source: string;
-  label: string;
-  icon: React.ReactNode;
-}> = ({ source, label, icon }) => {
-  const record = useRecordContext();
-  const date = record?.[source];
-
-  if (!date) return null;
-
-  // Short format for display
-  const displayDate = new Intl.DateTimeFormat(undefined, {
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(new Date(date));
-
-  // Verbose format for tooltip
-  const tooltipDate = new Intl.DateTimeFormat(undefined, {
+const formatDate = (date: string | Date | undefined): string => {
+  if (!date) return "N/A";
+  return new Intl.DateTimeFormat(navigator.language, {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
     weekday: "long",
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    timeZoneName: "long",
+    hourCycle: "h24",
   }).format(new Date(date));
+};
+
+export const SmartDateField: React.FC<{
+  label: string;
+}> = ({ label }) => {
+  const record = useRecordContext<{
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string;
+  }>();
+
+  // Short format for display
+  const displayDate = new Intl.DateTimeFormat(navigator.language, {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h24",
+  }).format(new Date(record?.createdAt || ""));
+
+  const tooltipContent = [
+    <div key="created">Created at: {formatDate(record?.createdAt)}</div>,
+    record?.createdAt !== record?.updatedAt && (
+      <div key="updated">Updated at: {formatDate(record?.updatedAt)}</div>
+    ),
+    record?.deletedAt && (
+      <div key="deleted">Deleted at: ${formatDate(record.deletedAt)}</div>
+    ),
+  ].filter(Boolean);
 
   return (
-    <Tooltip title={`${label} ${tooltipDate}`} arrow placement="right">
-      <Stack direction="row" alignItems="center" spacing={1}>
-        {icon}
-        <span>{displayDate}</span>
-      </Stack>
+    <Tooltip
+      title={
+        tooltipContent ? (
+          <Stack>{tooltipContent}</Stack>
+        ) : (
+          `${label} ${displayDate}`
+        )
+      }
+      arrow
+      placement="right"
+    >
+      <span>{displayDate}</span>
     </Tooltip>
   );
 };
-
-export const createUpdateDeleteComboField = (
-  <WrapperField label="Dates" sortBy="createdAt">
-    <Stack spacing={0} mb={2} fontSize={"0.8em"} color={"GrayText"}>
-      <SmartDateField
-        source="createdAt"
-        label="Created at"
-        icon={<HourglassTopIcon fontSize={"small"} />}
-      />
-      <SmartDateField
-        source="updatedAt"
-        label="Updated at"
-        icon={<UpdateIcon fontSize={"small"} />}
-      />
-      <SmartDateField
-        source="deletedAt"
-        label="Deleted at"
-        icon={<DeleteIcon fontSize={"small"} />}
-      />
-    </Stack>
-  </WrapperField>
-);
