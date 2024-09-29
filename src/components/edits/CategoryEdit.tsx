@@ -1,19 +1,12 @@
 import React from "react";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import DataObjectIcon from "@mui/icons-material/DataObject";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import EditIcon from "@mui/icons-material/Edit";
 import UpdateIcon from "@mui/icons-material/Update";
 
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Divider,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
 import { Category } from "@/gql/graphql";
 import {
@@ -30,13 +23,17 @@ import {
 
 import { decodeGlobalId } from "@/helpers/global-ids";
 
+import PersistentTabs from "../PersistentTabs";
+import { RawDataTab } from "../tabs/RawDataTab";
+
+interface ICategoryEdit extends Category {
+  "parent.id": string;
+  childrenIds: string[];
+}
+
 const CategoryAside: React.FC = () => {
-  const record = useRecordContext<
-    Category & {
-      "parent.id": string;
-      childrenIds: string[];
-    }
-  >();
+  const record = useRecordContext<ICategoryEdit>();
+
   if (!record) {
     return null;
   }
@@ -47,10 +44,7 @@ const CategoryAside: React.FC = () => {
       <Divider sx={{ marginY: "1rem" }} />
 
       <Typography variant="body2" gutterBottom>
-        <strong>ID:</strong> {decodeGlobalId(record.id).id}
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        <strong>Global ID:</strong> {record.id}
+        <strong>ID:</strong> {decodeGlobalId(record.id).id} ({record.id})
       </Typography>
       <Typography variant="body2" gutterBottom>
         <strong>Depth:</strong> {record.depth}
@@ -99,36 +93,25 @@ const CategoryAside: React.FC = () => {
           </Stack>
         )}
       </Stack>
-      <Accordion sx={{ marginTop: "2rem" }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="debug-content"
-          id="debug-header"
-        >
-          <Typography variant="h6">Debug Info</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <pre
-            style={{
-              maxWidth: "100%",
-              overflowX: "auto",
-              fontSize: "0.75em",
-            }}
-          >
-            <code>{JSON.stringify(record, null, 2)}</code>
-          </pre>
-        </AccordionDetails>
-      </Accordion>
     </Box>
   );
 };
 
 export const CategoryEdit: React.FC = () => (
   <Edit aside={<CategoryAside />}>
-    <SimpleForm>
-      <TextInput source="name" label="Category Name" fullWidth />
-      <TextInput source="path" label="Category Path" fullWidth />
-      <NumberInput source="weight" label="Sort Weight" fullWidth />
-    </SimpleForm>
+    <PersistentTabs
+      localStorageKey="category-edit-tabs"
+      tabLabels={[
+        { label: "Edit", icon: <EditIcon /> },
+        { label: "Raw Data", icon: <DataObjectIcon /> },
+      ]}
+    >
+      <SimpleForm>
+        <TextInput source="name" label="Category Name" fullWidth />
+        <TextInput source="path" label="Category Path" fullWidth />
+        <NumberInput source="weight" label="Sort Weight" fullWidth />
+      </SimpleForm>
+      <RawDataTab />
+    </PersistentTabs>
   </Edit>
 );

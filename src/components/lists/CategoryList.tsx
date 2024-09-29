@@ -6,8 +6,6 @@ import ListIcon from "@mui/icons-material/List";
 
 import { useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
 
 import { Category } from "@/gql/graphql";
 import { MouseHandler, ResponsiveSunburst } from "@nivo/sunburst";
@@ -32,6 +30,7 @@ import { TreeNode, useTreeData } from "@/helpers/ltree";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import { SmartDateField } from "../fields/SmartDateField";
+import PersistentTabs from "../PersistentTabs";
 
 const categoryFilters = [<SearchInput source="q" alwaysOn key="q" />];
 
@@ -71,12 +70,6 @@ export const CategoryList = () => {
 
   const treeData = useTreeData(data);
 
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
   const handleNodeClick: NodeMouseEventHandler<TreeNode> = (event) => {
     navigate(
       `/Category/${encodeURIComponent(encodeGlobalId("Category", event.data.id))}`,
@@ -85,27 +78,14 @@ export const CategoryList = () => {
 
   return (
     <>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab icon={<ListIcon />} iconPosition="start" label="List" />
-          <Tab
-            icon={<DonutLargeIcon />}
-            iconPosition="start"
-            label="Sunburst Chart"
-          />
-          <Tab
-            icon={<AccountTreeIcon />}
-            iconPosition="start"
-            label="Tree Chart"
-          />
-        </Tabs>
-      </Box>
-
-      <CustomTabPanel value={value} index={0}>
+      <PersistentTabs
+        localStorageKey="category-list-tabs"
+        tabLabels={[
+          { icon: <ListIcon />, label: "List" },
+          { icon: <DonutLargeIcon />, label: "Sunburst Chart" },
+          { icon: <AccountTreeIcon />, label: "Tree Chart" },
+        ]}
+      >
         <List
           actions={<CategoryListActions />}
           filters={categoryFilters}
@@ -133,8 +113,6 @@ export const CategoryList = () => {
             <SmartDateField label="Updated" sortBy="updatedAt" />
           </Datagrid>
         </List>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
         <div style={{ height: "69vh" }}>
           {treeData && (
             <ResponsiveSunburst
@@ -148,8 +126,6 @@ export const CategoryList = () => {
             />
           )}
         </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
         <div style={{ height: "69vh" }}>
           {treeData && (
             // @ts-expect-error TS definitions are broken in upstream nivo package.. sooo..
@@ -180,7 +156,7 @@ export const CategoryList = () => {
             />
           )}
         </div>
-      </CustomTabPanel>
+      </PersistentTabs>
     </>
   );
 };
