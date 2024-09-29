@@ -103,9 +103,9 @@ const CategoryAside: React.FC = () => {
 export const CategoryEdit: React.FC = () => (
   <Edit aside={<CategoryAside />}>
     <SimpleForm>
+      <TextInput source="name" label="Category Name" fullWidth />
       <TextInput source="path" label="Category Path" fullWidth />
       <NumberInput source="weight" label="Sort Weight" fullWidth />
-      <TextInput source="name" label="Category Name" fullWidth />
     </SimpleForm>
   </Edit>
 );

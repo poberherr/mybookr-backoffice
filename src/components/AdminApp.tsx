@@ -38,6 +38,7 @@ import buildGqlQuery from "@/graphql/buildGqlQuery";
 import buildVariables from "@/graphql/buildVariables";
 import getResponseParser from "@/graphql/getResponseParser";
 
+import { CategoryCreate } from "./creates/CategoryCreate";
 import Dashboard from "./Dashboard";
 import { BookingEdit } from "./edits/BookingEdit";
 import { CategoryEdit } from "./edits/CategoryEdit";
@@ -148,6 +149,7 @@ const AdminApp = () => {
         name="Category"
         list={CategoryList}
         edit={CategoryEdit}
+        create={CategoryCreate}
         icon={FolderSpecialIcon}
         recordRepresentation="name"
       />
