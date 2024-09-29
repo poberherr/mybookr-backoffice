@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
 import * as types from "./graphql";
