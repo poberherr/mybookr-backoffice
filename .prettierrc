@@ -9,6 +9,7 @@
   "importOrderCaseInsensitive": true,
   "importOrder": [
     "^react$",
+    "^@mui/icons-material/(.*)$",
     "^@mui/(.*)$",
     "<THIRD_PARTY_MODULES>",
     "^@/components/(.*)$",

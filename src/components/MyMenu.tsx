@@ -9,6 +9,7 @@ import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import PlaceIcon from "@mui/icons-material/Place";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
+
 import Divider from "@mui/material/Divider";
 
 import { DashboardMenuItem, MenuItemLink } from "react-admin";
