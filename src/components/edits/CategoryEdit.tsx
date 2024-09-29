@@ -2,8 +2,18 @@ import React from "react";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import UpdateIcon from "@mui/icons-material/Update";
-import { Box, Divider, Stack, Typography } from "@mui/material";
+
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Divider,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import { Category } from "@/gql/graphql";
 import {
@@ -27,75 +37,88 @@ const CategoryAside: React.FC = () => {
       childrenIds: string[];
     }
   >();
-
   if (!record) {
     return null;
   }
 
   return (
-    <Box width={300} ml={2}>
-      <Typography variant="h6" mb="4">
-        Id: {decodeGlobalId(record.id).id}
-      </Typography>
-      <Divider />
-      <Typography variant="h6" mb="4">
-        Global Id: {record.id}
-      </Typography>
-      <Divider />
-      <Typography variant="h6" mb="4">
-        Depth: {record.depth}
-      </Typography>
-      <Divider />
-      <Typography variant="h6">Parent:</Typography>
-      <Divider />
-      <Box my={2}>
-        {record["parent.id"] ? (
-          <ReferenceField source="parent.id" reference="Category">
-            <ChipField source="name" />
-          </ReferenceField>
-        ) : (
-          <Typography variant="body2">No parent category</Typography>
-        )}
-      </Box>
+    <Box width={300} ml={2} sx={{ padding: "2rem" }}>
+      <Typography variant="h6">Category Information</Typography>
+      <Divider sx={{ marginY: "1rem" }} />
 
-      <Typography variant="h6">Children:</Typography>
-      <Divider />
-      <Box my={2}>
-        {record && record["childrenIds"] ? (
-          <ReferenceArrayField
-            source="childrenIds"
-            reference="Category"
-            label="Children"
-          />
-        ) : (
-          <Typography variant="body2">No children</Typography>
-        )}
-      </Box>
+      <Typography variant="body2" gutterBottom>
+        <strong>ID:</strong> {decodeGlobalId(record.id).id}
+      </Typography>
+      <Typography variant="body2" gutterBottom>
+        <strong>Global ID:</strong> {record.id}
+      </Typography>
+      <Typography variant="body2" gutterBottom>
+        <strong>Depth:</strong> {record.depth}
+      </Typography>
 
-      <Typography variant="h6">Timestamps:</Typography>
-      <Divider />
-      <Stack spacing={2} mt={2}>
+      <Divider sx={{ marginY: "1rem" }} />
+
+      <Typography variant="h6">Parent</Typography>
+      {record["parent.id"] ? (
+        <ReferenceField source="parent.id" reference="Category" link="show">
+          <ChipField source="name" />
+        </ReferenceField>
+      ) : (
+        <Typography variant="body2">No parent category</Typography>
+      )}
+
+      <Divider sx={{ marginY: "1rem" }} />
+
+      <Typography variant="h6">Children</Typography>
+      {record["childrenIds"] && record["childrenIds"].length > 0 ? (
+        <ReferenceArrayField
+          source="childrenIds"
+          reference="Category"
+          label="Children"
+        />
+      ) : (
+        <Typography variant="body2">No children</Typography>
+      )}
+
+      <Divider sx={{ marginY: "1rem" }} />
+
+      <Typography variant="h6">Timestamps</Typography>
+      <Stack spacing={1} mt={1}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <AccessTimeIcon />
+          <AccessTimeIcon fontSize="small" />
           <DateField source="createdAt" label="Created at" showTime />
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <UpdateIcon />
+          <UpdateIcon fontSize="small" />
           <DateField source="updatedAt" label="Updated at" showTime />
         </Stack>
         {record.deletedAt && (
           <Stack direction="row" alignItems="center" spacing={1}>
-            <DeleteIcon />
+            <DeleteIcon fontSize="small" />
             <DateField source="deletedAt" label="Deleted at" showTime />
           </Stack>
         )}
       </Stack>
-
-      <Typography variant="h6">Debug:</Typography>
-      <Divider />
-      <pre style={{ fontSize: "0.8em", maxWidth: "100%", padding: "0.5rem" }}>
-        <code>{JSON.stringify(record, null, 2)}</code>
-      </pre>
+      <Accordion sx={{ marginTop: "2rem" }}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="debug-content"
+          id="debug-header"
+        >
+          <Typography variant="h6">Debug Info</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <pre
+            style={{
+              maxWidth: "100%",
+              overflowX: "auto",
+              fontSize: "0.75em",
+            }}
+          >
+            <code>{JSON.stringify(record, null, 2)}</code>
+          </pre>
+        </AccordionDetails>
+      </Accordion>
     </Box>
   );
 };
