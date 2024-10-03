@@ -25,14 +25,14 @@ const getResponseParser =
       raFetchMethod === GET_MANY ||
       raFetchMethod === GET_MANY_REFERENCE
     ) {
-      const pageInfo = data.data.edges[data.data.edges.length - 1].node.id;
+      const pageInfo = data.data.edges[data.data.edges.length - 1];
 
       return {
         data: data.data.edges
           // @ts-expect-error error inherited from copy of react-admin-source-graphql-simple
           .map((edge: unknown) => edge.node)
           .map(sanitizeResource),
-        pageInfo,
+        pageInfo: pageInfo?.node?.id || null,
         // total: response.data.total.count,
       };
     } else if (raFetchMethod === DELETE_MANY || raFetchMethod === UPDATE_MANY) {
