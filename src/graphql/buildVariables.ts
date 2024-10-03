@@ -339,12 +339,11 @@ const buildCreateUpdateVariables = (
   Object.keys(data).reduce(
     (acc, key) => {
       if (Array.isArray(data[key])) {
-        const arg = queryType.args.find((a) => a.name === `${key}Ids`);
-
+        const arg = queryType.args.find((a) => a.name === key);
         if (arg) {
           return {
             ...acc,
-            [`${key}Ids`]: data[key].map(({ id }) => id),
+            [key]: data[key].map(({ id }) => id),
           };
         }
       }
