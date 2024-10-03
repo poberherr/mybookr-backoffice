@@ -167,6 +167,12 @@ const AdminApp = () => {
         icon={SettingsAccessibilityIcon}
         recordRepresentation="name"
       />
+      <Resource
+        name="Log"
+        hasCreate={false}
+        hasEdit={false}
+        // hasShow={false}
+      />
       <CustomRoutes>
         <Route path="/" element={<Dashboard />} />
       </CustomRoutes>

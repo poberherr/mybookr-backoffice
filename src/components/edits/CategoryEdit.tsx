@@ -8,7 +8,7 @@ import UpdateIcon from "@mui/icons-material/Update";
 
 import { Box, Divider, Stack, Typography } from "@mui/material";
 
-import { Category } from "@/gql/graphql";
+import { Category, ForeignEntities } from "@/gql/graphql";
 import {
   ChipField,
   DateField,
@@ -23,6 +23,7 @@ import {
 
 import { decodeGlobalId } from "@/helpers/global-ids";
 
+import EntityHistory from "../EntityHistory";
 import PersistentTabs from "../PersistentTabs";
 import { RawDataTab } from "../tabs/RawDataTab";
 
@@ -93,6 +94,10 @@ const CategoryAside: React.FC = () => {
           </Stack>
         )}
       </Stack>
+
+      <Divider sx={{ marginY: "1rem" }} />
+      <Typography variant="h6">History</Typography>
+      <EntityHistory id={record.id} type={ForeignEntities.Categories} />
     </Box>
   );
 };
