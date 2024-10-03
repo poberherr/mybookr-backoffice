@@ -4,6 +4,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import DataObjectIcon from "@mui/icons-material/DataObject";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import HistoryIcon from "@mui/icons-material/History";
 import UpdateIcon from "@mui/icons-material/Update";
 
 import { Box, Divider, Stack, Typography } from "@mui/material";
@@ -94,10 +95,6 @@ const CategoryAside: React.FC = () => {
           </Stack>
         )}
       </Stack>
-
-      <Divider sx={{ marginY: "1rem" }} />
-      <Typography variant="h6">History</Typography>
-      <EntityHistory id={record.id} type={ForeignEntities.Categories} />
     </Box>
   );
 };
@@ -108,6 +105,7 @@ export const CategoryEdit: React.FC = () => (
       localStorageKey="category-edit-tabs"
       tabLabels={[
         { label: "Edit", icon: <EditIcon /> },
+        { label: "History", icon: <HistoryIcon /> },
         { label: "Raw Data", icon: <DataObjectIcon /> },
       ]}
     >
@@ -116,6 +114,7 @@ export const CategoryEdit: React.FC = () => (
         <TextInput source="path" label="Category Path" fullWidth />
         <NumberInput source="weight" label="Sort Weight" fullWidth />
       </SimpleForm>
+      <EntityHistory type={ForeignEntities.Categories} />
       <RawDataTab />
     </PersistentTabs>
   </Edit>

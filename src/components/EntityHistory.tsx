@@ -9,17 +9,22 @@ import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
 
 import { ForeignEntities, Log, LogActions } from "@/gql/graphql";
-import { DateField, ReferenceField, TextField, useGetList } from "react-admin";
+import {
+  DateField,
+  ReferenceField,
+  TextField,
+  useGetList,
+  useRecordContext,
+} from "react-admin";
 
-const EntityHistory: React.FC<{ id: string; type: ForeignEntities }> = ({
-  id,
-  type,
-}) => {
+const EntityHistory: React.FC<{ type: ForeignEntities }> = ({ type }) => {
+  const record = useRecordContext();
+
   const { data, total, isPending, error, refetch, meta } = useGetList<Log>(
     "Log",
     {
       filter: {
-        id,
+        id: record?.id || "",
         type,
       },
     },
@@ -31,7 +36,7 @@ const EntityHistory: React.FC<{ id: string; type: ForeignEntities }> = ({
 
   return (
     <Timeline position="right">
-      {data.map((log) => {
+      {data.map((log, i) => {
         let label = "Created";
         let color: TimelineDotProps["color"] = "success";
         if (log.action === LogActions.Update) {
@@ -45,15 +50,17 @@ const EntityHistory: React.FC<{ id: string; type: ForeignEntities }> = ({
         return (
           <TimelineItem key={log.id}>
             <TimelineOppositeContent color="text.secondary">
-              <DateField record={log} source="date" />
-              <br />
-              <DateField record={log} source="date" showDate={false} showTime />
+              <DateField record={log} source="date" showTime />
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot color={color} title={label} />
-              <TimelineConnector />
+              <TimelineDot
+                color={color}
+                title={JSON.stringify(log.inputValue, null, 2)}
+              />
+              {i < data.length - 1 && <TimelineConnector />}
             </TimelineSeparator>
             <TimelineContent>
+              <span style={{ fontSize: "0.85em" }}>{label} by </span>
               <ReferenceField source="authorId" reference="User" record={log}>
                 <TextField source="name" />
               </ReferenceField>
