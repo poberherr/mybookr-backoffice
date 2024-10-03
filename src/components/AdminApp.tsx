@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
@@ -12,7 +12,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
 
-import { SignInButton, useAuth } from "@clerk/nextjs";
+import { SignInButton } from "@clerk/nextjs";
 import {
   CREATE,
   DELETE,
@@ -38,6 +38,8 @@ import buildGqlQuery from "@/graphql/buildGqlQuery";
 import buildVariables from "@/graphql/buildVariables";
 import getResponseParser from "@/graphql/getResponseParser";
 
+import useJwtToken from "@/helpers/clerk";
+
 import { CategoryCreate } from "./creates/CategoryCreate";
 import Dashboard from "./Dashboard";
 import { BookingEdit } from "./edits/BookingEdit";
@@ -58,18 +60,7 @@ const buildQuery = buildQueryFactory(
 );
 
 const AdminApp = () => {
-  const { getToken } = useAuth();
-
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchToken = async () => {
-      const fetchedToken = await getToken();
-      setToken(fetchedToken);
-    };
-
-    fetchToken();
-  }, [getToken]);
+  const token = useJwtToken();
 
   const dataProvider = useMemo(() => {
     if (!token) {
@@ -79,7 +70,7 @@ const AdminApp = () => {
       clientOptions: {
         uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
           MybookrAuth: process.env.NEXT_PUBLIC_GRAPHQL_AUTH_HEADER || "",
         },
       },
