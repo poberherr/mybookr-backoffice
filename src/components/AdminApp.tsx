@@ -42,6 +42,7 @@ import useJwtToken from "@/helpers/clerk";
 
 import { CategoryCreate } from "./creates/CategoryCreate";
 import Dashboard from "./Dashboard";
+import { ActivityEdit } from "./edits/ActivityEdit";
 import { BookingEdit } from "./edits/BookingEdit";
 import { CategoryEdit } from "./edits/CategoryEdit";
 import { LocationEdit } from "./edits/LocationEdit";
@@ -118,7 +119,7 @@ const AdminApp = () => {
       <Resource
         name="Activity"
         list={ActivityList}
-        edit={EditGuesser}
+        edit={ActivityEdit}
         icon={LocalActivityIcon}
         recordRepresentation="title"
       />

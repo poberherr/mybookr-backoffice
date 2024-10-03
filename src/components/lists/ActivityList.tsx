@@ -1,12 +1,32 @@
-import { Datagrid, List, ReferenceField, TextField } from "react-admin";
+import {
+  CreateButton,
+  Datagrid,
+  ExportButton,
+  FilterButton,
+  List,
+  ReferenceField,
+  SearchInput,
+  TextField,
+  TopToolbar,
+} from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import MarkdownTextField from "../fields/MarkdownField";
 import PriceField from "../fields/PriceField";
 import { SmartDateField } from "../fields/SmartDateField";
 
+const activityFilters = [<SearchInput source="q" alwaysOn key="q" />];
+
+const ActivityListActions = () => (
+  <TopToolbar>
+    <FilterButton />
+    <CreateButton />
+    <ExportButton />
+  </TopToolbar>
+);
+
 export const ActivityList = () => (
-  <List>
+  <List actions={<ActivityListActions />} filters={activityFilters}>
     <Datagrid>
       <GlobalIdTextField source="id" />
       <ReferenceField
