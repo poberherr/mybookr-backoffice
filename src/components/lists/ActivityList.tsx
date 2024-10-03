@@ -26,18 +26,29 @@ const ActivityListActions = () => (
 );
 
 export const ActivityList = () => (
-  <List actions={<ActivityListActions />} filters={activityFilters}>
+  <List
+    actions={<ActivityListActions />}
+    filters={activityFilters}
+    sort={{ field: "path", order: "ASC" }}
+  >
     <Datagrid>
       <GlobalIdTextField source="id" />
+      <TextField source="title" />
       <ReferenceField
         source="experience.id"
         reference="Experience"
         label="Experience"
       >
-        <TextField source="title" />
+        <TextField source="title" /> by{" "}
+        <ReferenceField
+          source="operator.id"
+          reference="User"
+          label="Operator"
+          sortable={false}
+        >
+          <TextField source="name" />
+        </ReferenceField>
       </ReferenceField>
-      <TextField source="title" />
-      <TextField source="slug" />
       <PriceField source="price" />
       <MarkdownTextField source="description" maxLength={42} />
       <SmartDateField label="Updated" sortBy="updatedAt" />
