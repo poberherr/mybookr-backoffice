@@ -46,7 +46,7 @@ export const SmartDateField: React.FC<Omit<FieldProps, "source">> = () => {
 
   return (
     <Tooltip title={<Stack>{tooltipContent}</Stack>} arrow placement="right">
-      <span>{displayDate}</span>
+      <span style={{ whiteSpace: "nowrap" }}>{displayDate}</span>
     </Tooltip>
   );
 };
