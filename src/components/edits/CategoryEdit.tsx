@@ -100,7 +100,7 @@ const CategoryAside: React.FC = () => {
 };
 
 export const CategoryEdit: React.FC = () => (
-  <Edit aside={<CategoryAside />}>
+  <Edit aside={<CategoryAside />} mutationMode="pessimistic">
     <PersistentTabs
       localStorageKey="category-edit-tabs"
       tabLabels={[

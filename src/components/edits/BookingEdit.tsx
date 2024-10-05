@@ -14,7 +14,7 @@ import GlobalIdTextField from "../fields/GlobalIdTextField";
 import DollarInput from "../inputs/DollarInput";
 
 export const BookingEdit = () => (
-  <Edit>
+  <Edit mutationMode="pessimistic">
     <SimpleForm>
       <Stack
         spacing={2}

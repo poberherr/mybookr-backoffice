@@ -3,7 +3,7 @@ import { Edit, SimpleForm, TextInput } from "react-admin";
 import MapInput from "../inputs/MapInput";
 
 export const LocationEdit = () => (
-  <Edit>
+  <Edit mutationMode="pessimistic">
     <SimpleForm>
       <TextInput source="addressLineOne" />
       <TextInput source="addressLineTwo" />

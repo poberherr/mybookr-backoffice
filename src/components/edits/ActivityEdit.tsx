@@ -12,7 +12,7 @@ import DollarInput from "../inputs/DollarInput";
 import MilkdownInput from "../inputs/MilkdownInput";
 
 export const ActivityEdit = () => (
-  <Edit>
+  <Edit mutationMode="pessimistic">
     <SimpleForm>
       <ReferenceInput
         source="experience.id"
