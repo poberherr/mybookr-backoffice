@@ -1,17 +1,32 @@
 import {
+  CreateButton,
   Datagrid,
+  ExportButton,
+  FilterButton,
   List,
   NumberField,
   ReferenceArrayField,
   ReferenceField,
+  SearchInput,
   TextField,
+  TopToolbar,
 } from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import { SmartDateField } from "../fields/SmartDateField";
 
+const ExperienceListActions = () => (
+  <TopToolbar>
+    <FilterButton />
+    <CreateButton />
+    <ExportButton />
+  </TopToolbar>
+);
+
+const experienceFilters = [<SearchInput source="q" alwaysOn key="q" />];
+
 export const ExperienceList = () => (
-  <List>
+  <List actions={<ExperienceListActions />} filters={experienceFilters}>
     <Datagrid>
       <GlobalIdTextField source="id" />
 
