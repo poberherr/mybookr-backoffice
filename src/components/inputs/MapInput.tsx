@@ -12,8 +12,8 @@ const MapInput = () => {
   const { field: fieldLongitude } = useInput({ source: "longitude" });
 
   const [markerPosition, setMarkerPosition] = useState({
-    latitude: fieldLatitude.value,
-    longitude: fieldLongitude.value,
+    latitude: fieldLatitude.value || -8.409537,
+    longitude: fieldLongitude.value || 115.16015,
   });
 
   const onMapClick = useCallback(
@@ -30,9 +30,9 @@ const MapInput = () => {
     <Box width="100%">
       <Map
         initialViewState={{
-          longitude: markerPosition.longitude,
-          latitude: markerPosition.latitude,
-          zoom: 13,
+          longitude: markerPosition?.longitude,
+          latitude: markerPosition?.latitude,
+          zoom: fieldLatitude.value ? 13 : 8,
         }}
         style={{ width: "100%", height: "400px" }}
         mapStyle="mapbox://styles/mapbox/streets-v11"
@@ -40,18 +40,20 @@ const MapInput = () => {
         onClick={onMapClick}
       >
         <Marker
-          longitude={markerPosition.longitude}
-          latitude={markerPosition.latitude}
+          longitude={markerPosition?.longitude}
+          latitude={markerPosition?.latitude}
         />
       </Map>
-      <Box display="flex" justifyContent="space-between" mt={2}>
-        <Typography variant="body1">
-          Latitude: {markerPosition.latitude.toFixed(6)}
-        </Typography>
-        <Typography variant="body1">
-          Longitude: {markerPosition.longitude.toFixed(6)}
-        </Typography>
-      </Box>
+      {markerPosition && (
+        <Box display="flex" justifyContent="space-between" mt={2}>
+          <Typography variant="body1">
+            Latitude: {markerPosition.latitude.toFixed(6)}
+          </Typography>
+          <Typography variant="body1">
+            Longitude: {markerPosition.longitude.toFixed(6)}
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 };

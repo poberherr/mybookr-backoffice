@@ -17,13 +17,7 @@ import { GET_ONE } from "ra-core";
 import buildGraphQLProvider, {
   buildQueryFactory,
 } from "ra-data-graphql-simple";
-import {
-  Admin,
-  CustomRoutes,
-  EditGuesser,
-  ListGuesser,
-  Resource,
-} from "react-admin";
+import { Admin, CustomRoutes, EditGuesser, Resource } from "react-admin";
 import { Route } from "react-router-dom";
 
 import buildGqlQuery from "@/graphql/buildGqlQuery";
@@ -35,6 +29,7 @@ import useJwtToken from "@/helpers/clerk";
 import { ActivityCreate } from "./creates/ActivityCreate";
 import { CategoryCreate } from "./creates/CategoryCreate";
 import { ExperienceCreate } from "./creates/ExperienceCreate";
+import { LocationCreate } from "./creates/LocationCreate";
 import { OperatorCreate } from "./creates/OperatorCreate";
 import { UserCreate } from "./creates/UserCreate";
 import Dashboard from "./Dashboard";
@@ -50,6 +45,7 @@ import { ActivityList } from "./lists/ActivityList";
 import { BookingList } from "./lists/BookingList";
 import { CategoryList } from "./lists/CategoryList";
 import { ExperienceList } from "./lists/ExperienceList";
+import { LocationList } from "./lists/LocationList";
 import { MediaList } from "./lists/MediaList";
 import { OperatorList } from "./lists/OperatorList";
 import { PaymentList } from "./lists/PaymentList";
@@ -130,8 +126,9 @@ const AdminApp = () => {
       />
       <Resource
         name="Location"
-        list={ListGuesser}
+        list={LocationList}
         edit={LocationEdit}
+        create={LocationCreate}
         icon={PlaceIcon}
         recordRepresentation="addressLineOne"
       />
