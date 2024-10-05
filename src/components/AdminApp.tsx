@@ -43,6 +43,7 @@ import { BookingEdit } from "./edits/BookingEdit";
 import { CategoryEdit } from "./edits/CategoryEdit";
 import { ExperienceEdit } from "./edits/ExperienceEdit";
 import { LocationEdit } from "./edits/LocationEdit";
+import { MediaEdit } from "./edits/MediaEdit";
 import { OperatorEdit } from "./edits/OperatorEdit";
 import { UserEdit } from "./edits/UserEdit";
 import { ActivityList } from "./lists/ActivityList";
@@ -123,7 +124,7 @@ const AdminApp = () => {
       <Resource
         name="Media"
         list={MediaList}
-        edit={EditGuesser}
+        edit={MediaEdit}
         icon={PhotoLibraryIcon}
         recordRepresentation="title"
       />

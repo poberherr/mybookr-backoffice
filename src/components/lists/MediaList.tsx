@@ -1,10 +1,34 @@
-import { Datagrid, ImageField, List, TextField } from "react-admin";
+import {
+  CreateButton,
+  Datagrid,
+  ExportButton,
+  FilterButton,
+  ImageField,
+  List,
+  SearchInput,
+  TextField,
+  TopToolbar,
+} from "react-admin";
 
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import { SmartDateField } from "../fields/SmartDateField";
 
+const mediaFilters = [<SearchInput source="q" alwaysOn key="q" />];
+
+const MediaListActions = () => (
+  <TopToolbar>
+    <FilterButton />
+    <CreateButton />
+    <ExportButton />
+  </TopToolbar>
+);
+
 export const MediaList = () => (
-  <List>
+  <List
+    actions={<MediaListActions />}
+    filters={mediaFilters}
+    sort={{ field: "path", order: "ASC" }}
+  >
     <Datagrid>
       <GlobalIdTextField source="id" />
       <TextField source="title" />
