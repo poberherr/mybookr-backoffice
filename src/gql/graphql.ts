@@ -65,7 +65,7 @@ export type Booking = {
   __typename?: "Booking";
   activity?: Maybe<Activity>;
   additionalInformation?: Maybe<Scalars["String"]["output"]>;
-  bookedDate: Scalars["Date"]["output"];
+  bookedDate: Scalars["String"]["output"];
   booker?: Maybe<User>;
   createdAt: Scalars["DateTimeISO"]["output"];
   currency?: Maybe<Scalars["String"]["output"]>;
