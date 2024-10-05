@@ -56,6 +56,11 @@ export type ActivityBlockedDaysArgs = {
   dateStart?: InputMaybe<Scalars["Date"]["input"]>;
 };
 
+export type ActivityFilters = {
+  ids?: InputMaybe<Array<Scalars["ID"]["input"]>>;
+  q?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export type Booking = {
   __typename?: "Booking";
   activity?: Maybe<Activity>;
@@ -73,6 +78,11 @@ export type Booking = {
   telephone: Scalars["String"]["output"];
   totalCost: Scalars["Int"]["output"];
   updatedAt: Scalars["DateTimeISO"]["output"];
+};
+
+export type BookingFilters = {
+  ids?: InputMaybe<Array<Scalars["ID"]["input"]>>;
+  q?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export enum BookingStatus {
@@ -122,6 +132,11 @@ export type Experience = {
   weight: Scalars["Int"]["output"];
 };
 
+export type ExperienceFilters = {
+  ids?: InputMaybe<Array<Scalars["ID"]["input"]>>;
+  q?: InputMaybe<Scalars["String"]["input"]>;
+};
+
 export enum ForeignEntities {
   Activities = "ACTIVITIES",
   Bookings = "BOOKINGS",
@@ -148,10 +163,6 @@ export type Location = {
   longitude?: Maybe<Scalars["Float"]["output"]>;
   postalCode?: Maybe<Scalars["String"]["output"]>;
   updatedAt: Scalars["DateTimeISO"]["output"];
-};
-
-export type LocationInput = {
-  id: Scalars["ID"]["input"];
 };
 
 export type Log = {
@@ -200,21 +211,39 @@ export enum MediaType {
 export type Mutation = {
   __typename?: "Mutation";
   checkBookingStatus: BookingStatus;
+  createActivity: Activity;
   createBooking: Booking;
   createCategory: Category;
   createExperience: Experience;
   createPayment: UpdateBookingResultType;
+  createUser: User;
+  deleteActivity: Activity;
+  deleteBooking: Booking;
   deleteCategory: Category;
+  deleteExperience: Experience;
+  deleteUser: User;
   startNewBooking: StartNewBookingResultType;
+  updateActivity: Activity;
   updateBooking: Booking;
   updateCategory: Category;
   updateExistingBooking: Scalars["Boolean"]["output"];
   updateExperience: Experience;
+  updateUser: User;
   uploadMedia: Scalars["Boolean"]["output"];
 };
 
 export type MutationCheckBookingStatusArgs = {
   bookingFlowToken: Scalars["String"]["input"];
+};
+
+export type MutationCreateActivityArgs = {
+  description: Scalars["String"]["input"];
+  durationMinutes: Scalars["Int"]["input"];
+  experience: Scalars["ID"]["input"];
+  guestMax?: InputMaybe<Scalars["Int"]["input"]>;
+  medias: Array<Scalars["ID"]["input"]>;
+  price: Scalars["Int"]["input"];
+  title: Scalars["String"]["input"];
 };
 
 export type MutationCreateBookingArgs = {
@@ -238,10 +267,11 @@ export type MutationCreateCategoryArgs = {
 };
 
 export type MutationCreateExperienceArgs = {
+  categories: Array<Scalars["ID"]["input"]>;
   description?: InputMaybe<Scalars["String"]["input"]>;
-  location: LocationInput;
-  medias: Array<Scalars["File"]["input"]>;
-  operatorUser?: InputMaybe<UserInput>;
+  location: Scalars["ID"]["input"];
+  medias: Array<Scalars["ID"]["input"]>;
+  operator: Scalars["ID"]["input"];
   slug: Scalars["String"]["input"];
   title: Scalars["String"]["input"];
   weight?: Scalars["Int"]["input"];
@@ -252,12 +282,44 @@ export type MutationCreatePaymentArgs = {
   redirectOrigin: Scalars["String"]["input"];
 };
 
+export type MutationCreateUserArgs = {
+  email: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+};
+
+export type MutationDeleteActivityArgs = {
+  id: Scalars["ID"]["input"];
+};
+
+export type MutationDeleteBookingArgs = {
+  id: Scalars["ID"]["input"];
+};
+
 export type MutationDeleteCategoryArgs = {
+  id: Scalars["ID"]["input"];
+};
+
+export type MutationDeleteExperienceArgs = {
+  id: Scalars["ID"]["input"];
+};
+
+export type MutationDeleteUserArgs = {
   id: Scalars["ID"]["input"];
 };
 
 export type MutationStartNewBookingArgs = {
   data: StartNewBooking;
+};
+
+export type MutationUpdateActivityArgs = {
+  description: Scalars["String"]["input"];
+  durationMinutes: Scalars["Int"]["input"];
+  experience: Scalars["ID"]["input"];
+  guestMax?: InputMaybe<Scalars["Int"]["input"]>;
+  id: Scalars["ID"]["input"];
+  medias: Array<Scalars["ID"]["input"]>;
+  price: Scalars["Int"]["input"];
+  title: Scalars["String"]["input"];
 };
 
 export type MutationUpdateBookingArgs = {
@@ -287,12 +349,21 @@ export type MutationUpdateExistingBookingArgs = {
 };
 
 export type MutationUpdateExperienceArgs = {
+  categories: Array<Scalars["ID"]["input"]>;
   description?: InputMaybe<Scalars["String"]["input"]>;
   id: Scalars["ID"]["input"];
-  location?: InputMaybe<LocationInput>;
-  medias?: InputMaybe<Array<Scalars["File"]["input"]>>;
-  operatorUser?: InputMaybe<UserInput>;
-  title?: InputMaybe<Scalars["String"]["input"]>;
+  location: Scalars["ID"]["input"];
+  medias: Array<Scalars["ID"]["input"]>;
+  operator: Scalars["ID"]["input"];
+  slug: Scalars["String"]["input"];
+  title: Scalars["String"]["input"];
+  weight?: Scalars["Int"]["input"];
+};
+
+export type MutationUpdateUserArgs = {
+  email: Scalars["String"]["input"];
+  id: Scalars["ID"]["input"];
+  name: Scalars["String"]["input"];
 };
 
 export type MutationUploadMediaArgs = {
@@ -315,6 +386,11 @@ export type Operator = {
   website: Scalars["String"]["output"];
   websiteBooking: Scalars["String"]["output"];
   xenditUserId?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type OperatorFilters = {
+  ids?: InputMaybe<Array<Scalars["ID"]["input"]>>;
+  q?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type PageInfo = {
@@ -358,38 +434,124 @@ export enum PaymentStatus {
 export type Query = {
   __typename?: "Query";
   activity?: Maybe<Activity>;
-  activitys: QueryActivitysConnection;
+  allActivities: QueryAllActivitiesConnection;
+  allBookings: QueryAllBookingsConnection;
+  allCategories: QueryAllCategoriesConnection;
+  allExperiences: QueryAllExperiencesConnection;
+  allLocations: QueryAllLocationsConnection;
+  allLogs: QueryAllLogsConnection;
+  allMedia: QueryAllMediaConnection;
+  allOperators: QueryAllOperatorsConnection;
+  allPayments: QueryAllPaymentsConnection;
+  allUsers: QueryAllUsersConnection;
   booking?: Maybe<Booking>;
-  bookings: QueryBookingsConnection;
   category?: Maybe<Category>;
-  categorys: QueryCategorysConnection;
   currency: QueryCurrencyResultType;
   experience?: Maybe<Experience>;
   experienceAvailableActivities?: Maybe<Experience>;
-  experiences: QueryExperiencesConnection;
   filterExperiences: QueryFilterExperiencesConnection;
   location?: Maybe<Location>;
-  locations: QueryLocationsConnection;
   log?: Maybe<Log>;
-  logs: QueryLogsConnection;
   me?: Maybe<User>;
   media?: Maybe<Media>;
-  medias: QueryMediasConnection;
   operator?: Maybe<Operator>;
-  operators: QueryOperatorsConnection;
   payment?: Maybe<Payment>;
-  payments: QueryPaymentsConnection;
   user?: Maybe<User>;
-  users: QueryUsersConnection;
 };
 
 export type QueryActivityArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryActivitysArgs = {
+export type QueryAllActivitiesArgs = {
   after?: InputMaybe<Scalars["String"]["input"]>;
   before?: InputMaybe<Scalars["String"]["input"]>;
+  filter?: InputMaybe<ActivityFilters>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllBookingsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  filter?: InputMaybe<BookingFilters>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllCategoriesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  filter?: InputMaybe<CategoryFilters>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllExperiencesArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  filter?: InputMaybe<ExperienceFilters>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllLocationsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllLogsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  filter: LogFilters;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type QueryAllMediaArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllOperatorsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  filter?: InputMaybe<OperatorFilters>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllPaymentsArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  last?: InputMaybe<Scalars["Int"]["input"]>;
+  sortField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryAllUsersArgs = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  filter?: InputMaybe<UserFilters>;
   first?: InputMaybe<Scalars["Int"]["input"]>;
   last?: InputMaybe<Scalars["Int"]["input"]>;
   sortField?: InputMaybe<Scalars["String"]["input"]>;
@@ -400,28 +562,9 @@ export type QueryBookingArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryBookingsArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
-};
-
 export type QueryCategoryArgs = {
   id?: InputMaybe<Scalars["ID"]["input"]>;
   path?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type QueryCategorysArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  filter?: InputMaybe<CategoryFilters>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryExperienceArgs = {
@@ -432,15 +575,6 @@ export type QueryExperienceAvailableActivitiesArgs = {
   dateEnd?: InputMaybe<Scalars["Date"]["input"]>;
   dateStart?: InputMaybe<Scalars["Date"]["input"]>;
   id: Scalars["ID"]["input"];
-};
-
-export type QueryExperiencesArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryFilterExperiencesArgs = {
@@ -457,130 +591,149 @@ export type QueryLocationArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryLocationsArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
-};
-
 export type QueryLogArgs = {
   id: Scalars["ID"]["input"];
-};
-
-export type QueryLogsArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  filter: LogFilters;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type QueryMediaArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryMediasArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
-};
-
 export type QueryOperatorArgs = {
   id: Scalars["ID"]["input"];
-};
-
-export type QueryOperatorsArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryPaymentArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryPaymentsArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
-};
-
 export type QueryUserArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryUsersArgs = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  last?: InputMaybe<Scalars["Int"]["input"]>;
-  sortField?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type QueryActivitysConnection = {
-  __typename?: "QueryActivitysConnection";
-  edges: Array<Maybe<QueryActivitysConnectionEdge>>;
+export type QueryAllActivitiesConnection = {
+  __typename?: "QueryAllActivitiesConnection";
+  edges: Array<Maybe<QueryAllActivitiesConnectionEdge>>;
   pageInfo: PageInfo;
 };
 
-export type QueryActivitysConnectionEdge = {
-  __typename?: "QueryActivitysConnectionEdge";
+export type QueryAllActivitiesConnectionEdge = {
+  __typename?: "QueryAllActivitiesConnectionEdge";
   cursor: Scalars["String"]["output"];
   node: Activity;
 };
 
-export type QueryBookingsConnection = {
-  __typename?: "QueryBookingsConnection";
-  edges: Array<Maybe<QueryBookingsConnectionEdge>>;
+export type QueryAllBookingsConnection = {
+  __typename?: "QueryAllBookingsConnection";
+  edges: Array<Maybe<QueryAllBookingsConnectionEdge>>;
   pageInfo: PageInfo;
 };
 
-export type QueryBookingsConnectionEdge = {
-  __typename?: "QueryBookingsConnectionEdge";
+export type QueryAllBookingsConnectionEdge = {
+  __typename?: "QueryAllBookingsConnectionEdge";
   cursor: Scalars["String"]["output"];
   node: Booking;
 };
 
-export type QueryCategorysConnection = {
-  __typename?: "QueryCategorysConnection";
-  edges: Array<Maybe<QueryCategorysConnectionEdge>>;
+export type QueryAllCategoriesConnection = {
+  __typename?: "QueryAllCategoriesConnection";
+  edges: Array<Maybe<QueryAllCategoriesConnectionEdge>>;
   pageInfo: PageInfo;
 };
 
-export type QueryCategorysConnectionEdge = {
-  __typename?: "QueryCategorysConnectionEdge";
+export type QueryAllCategoriesConnectionEdge = {
+  __typename?: "QueryAllCategoriesConnectionEdge";
   cursor: Scalars["String"]["output"];
   node: Category;
+};
+
+export type QueryAllExperiencesConnection = {
+  __typename?: "QueryAllExperiencesConnection";
+  edges: Array<Maybe<QueryAllExperiencesConnectionEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type QueryAllExperiencesConnectionEdge = {
+  __typename?: "QueryAllExperiencesConnectionEdge";
+  cursor: Scalars["String"]["output"];
+  node: Experience;
+};
+
+export type QueryAllLocationsConnection = {
+  __typename?: "QueryAllLocationsConnection";
+  edges: Array<Maybe<QueryAllLocationsConnectionEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type QueryAllLocationsConnectionEdge = {
+  __typename?: "QueryAllLocationsConnectionEdge";
+  cursor: Scalars["String"]["output"];
+  node: Location;
+};
+
+export type QueryAllLogsConnection = {
+  __typename?: "QueryAllLogsConnection";
+  edges: Array<Maybe<QueryAllLogsConnectionEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type QueryAllLogsConnectionEdge = {
+  __typename?: "QueryAllLogsConnectionEdge";
+  cursor: Scalars["String"]["output"];
+  node: Log;
+};
+
+export type QueryAllMediaConnection = {
+  __typename?: "QueryAllMediaConnection";
+  edges: Array<Maybe<QueryAllMediaConnectionEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type QueryAllMediaConnectionEdge = {
+  __typename?: "QueryAllMediaConnectionEdge";
+  cursor: Scalars["String"]["output"];
+  node: Media;
+};
+
+export type QueryAllOperatorsConnection = {
+  __typename?: "QueryAllOperatorsConnection";
+  edges: Array<Maybe<QueryAllOperatorsConnectionEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type QueryAllOperatorsConnectionEdge = {
+  __typename?: "QueryAllOperatorsConnectionEdge";
+  cursor: Scalars["String"]["output"];
+  node: Operator;
+};
+
+export type QueryAllPaymentsConnection = {
+  __typename?: "QueryAllPaymentsConnection";
+  edges: Array<Maybe<QueryAllPaymentsConnectionEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type QueryAllPaymentsConnectionEdge = {
+  __typename?: "QueryAllPaymentsConnectionEdge";
+  cursor: Scalars["String"]["output"];
+  node: Payment;
+};
+
+export type QueryAllUsersConnection = {
+  __typename?: "QueryAllUsersConnection";
+  edges: Array<Maybe<QueryAllUsersConnectionEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type QueryAllUsersConnectionEdge = {
+  __typename?: "QueryAllUsersConnectionEdge";
+  cursor: Scalars["String"]["output"];
+  node: User;
 };
 
 export type QueryCurrencyResultType = {
   __typename?: "QueryCurrencyResultType";
   idr: Scalars["Int"]["output"];
-};
-
-export type QueryExperiencesConnection = {
-  __typename?: "QueryExperiencesConnection";
-  edges: Array<Maybe<QueryExperiencesConnectionEdge>>;
-  pageInfo: PageInfo;
-};
-
-export type QueryExperiencesConnectionEdge = {
-  __typename?: "QueryExperiencesConnectionEdge";
-  cursor: Scalars["String"]["output"];
-  node: Experience;
 };
 
 export type QueryFilterExperiencesConnection = {
@@ -593,78 +746,6 @@ export type QueryFilterExperiencesConnectionEdge = {
   __typename?: "QueryFilterExperiencesConnectionEdge";
   cursor: Scalars["String"]["output"];
   node: Experience;
-};
-
-export type QueryLocationsConnection = {
-  __typename?: "QueryLocationsConnection";
-  edges: Array<Maybe<QueryLocationsConnectionEdge>>;
-  pageInfo: PageInfo;
-};
-
-export type QueryLocationsConnectionEdge = {
-  __typename?: "QueryLocationsConnectionEdge";
-  cursor: Scalars["String"]["output"];
-  node: Location;
-};
-
-export type QueryLogsConnection = {
-  __typename?: "QueryLogsConnection";
-  edges: Array<Maybe<QueryLogsConnectionEdge>>;
-  pageInfo: PageInfo;
-};
-
-export type QueryLogsConnectionEdge = {
-  __typename?: "QueryLogsConnectionEdge";
-  cursor: Scalars["String"]["output"];
-  node: Log;
-};
-
-export type QueryMediasConnection = {
-  __typename?: "QueryMediasConnection";
-  edges: Array<Maybe<QueryMediasConnectionEdge>>;
-  pageInfo: PageInfo;
-};
-
-export type QueryMediasConnectionEdge = {
-  __typename?: "QueryMediasConnectionEdge";
-  cursor: Scalars["String"]["output"];
-  node: Media;
-};
-
-export type QueryOperatorsConnection = {
-  __typename?: "QueryOperatorsConnection";
-  edges: Array<Maybe<QueryOperatorsConnectionEdge>>;
-  pageInfo: PageInfo;
-};
-
-export type QueryOperatorsConnectionEdge = {
-  __typename?: "QueryOperatorsConnectionEdge";
-  cursor: Scalars["String"]["output"];
-  node: Operator;
-};
-
-export type QueryPaymentsConnection = {
-  __typename?: "QueryPaymentsConnection";
-  edges: Array<Maybe<QueryPaymentsConnectionEdge>>;
-  pageInfo: PageInfo;
-};
-
-export type QueryPaymentsConnectionEdge = {
-  __typename?: "QueryPaymentsConnectionEdge";
-  cursor: Scalars["String"]["output"];
-  node: Payment;
-};
-
-export type QueryUsersConnection = {
-  __typename?: "QueryUsersConnection";
-  edges: Array<Maybe<QueryUsersConnectionEdge>>;
-  pageInfo: PageInfo;
-};
-
-export type QueryUsersConnectionEdge = {
-  __typename?: "QueryUsersConnectionEdge";
-  cursor: Scalars["String"]["output"];
-  node: User;
 };
 
 export type StartNewBooking = {
@@ -710,6 +791,7 @@ export type User = {
   updatedAt: Scalars["DateTimeISO"]["output"];
 };
 
-export type UserInput = {
-  id: Scalars["ID"]["input"];
+export type UserFilters = {
+  ids?: InputMaybe<Array<Scalars["ID"]["input"]>>;
+  q?: InputMaybe<Scalars["String"]["input"]>;
 };
