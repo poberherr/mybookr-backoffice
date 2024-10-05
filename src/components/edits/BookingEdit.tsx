@@ -2,43 +2,18 @@ import { Stack } from "@mui/material";
 
 import {
   Edit,
-  ReferenceField,
   ReferenceInput,
   SelectInput,
   SimpleForm,
-  TextField,
   TextInput,
 } from "react-admin";
 
-import GlobalIdTextField from "../fields/GlobalIdTextField";
+import BookingAside from "../aside/BookingAside";
 import DollarInput from "../inputs/DollarInput";
 
 export const BookingEdit = () => (
-  <Edit mutationMode="pessimistic">
+  <Edit mutationMode="pessimistic" aside={<BookingAside />}>
     <SimpleForm>
-      <Stack
-        spacing={2}
-        direction={"row"}
-        sx={{
-          padding: "2rem",
-          marginBottom: "1rem",
-          border: "2px solid #efefef",
-        }}
-      >
-        <div>
-          <strong>Booking Id:</strong> <GlobalIdTextField source="id" />
-        </div>
-        <div>
-          <strong>Reference Code:</strong> <TextField source="referenceCode" />
-        </div>
-        <div>
-          <strong>Activity:</strong>{" "}
-          <ReferenceField source="activity.id" reference="Activity" />
-        </div>
-        <div>
-          <strong>Booking Date:</strong> @todo
-        </div>
-      </Stack>
       <Stack direction="row" spacing={2}>
         <div>
           <SelectInput

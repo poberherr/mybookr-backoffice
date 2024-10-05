@@ -8,11 +8,11 @@ import {
   TextInput,
 } from "react-admin";
 
+import GenericAside from "../aside/GenericAside";
 import DollarInput from "../inputs/DollarInput";
-import MilkdownInput from "../inputs/MilkdownInput";
 
 export const ActivityEdit = () => (
-  <Edit mutationMode="pessimistic">
+  <Edit mutationMode="pessimistic" aside={<GenericAside />}>
     <SimpleForm>
       <ReferenceInput
         source="experience.id"
@@ -20,7 +20,7 @@ export const ActivityEdit = () => (
         label="Experience"
       />
       <TextInput source="title" />
-      <MilkdownInput source="description" />
+      <TextInput source="description" />
       <DollarInput source="price" />
       <NumberInput source="durationMinutes" />
       <ArrayInput source="medias">
