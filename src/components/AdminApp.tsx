@@ -32,7 +32,9 @@ import getResponseParser from "@/graphql/getResponseParser";
 
 import useJwtToken from "@/helpers/clerk";
 
+import { ActivityCreate } from "./creates/ActivityCreate";
 import { CategoryCreate } from "./creates/CategoryCreate";
+import { ExperienceCreate } from "./creates/ExperienceCreate";
 import Dashboard from "./Dashboard";
 import { ActivityEdit } from "./edits/ActivityEdit";
 import { BookingEdit } from "./edits/BookingEdit";
@@ -100,6 +102,7 @@ const AdminApp = () => {
         name="Experience"
         list={ExperienceList}
         edit={ExperienceEdit}
+        create={ExperienceCreate}
         icon={Diversity2Icon}
         recordRepresentation="title"
       />
@@ -107,6 +110,7 @@ const AdminApp = () => {
         name="Activity"
         list={ActivityList}
         edit={ActivityEdit}
+        create={ActivityCreate}
         icon={LocalActivityIcon}
         recordRepresentation="title"
       />

@@ -349,7 +349,7 @@ const buildCreateUpdateVariables = (
       }
 
       if (typeof data[key] === "object") {
-        const arg = Object.keys(data).find((argKey) => argKey === `${key}.id`);
+        const arg = Object.keys(data).find((argKey) => argKey === key);
 
         if (arg) {
           return {
