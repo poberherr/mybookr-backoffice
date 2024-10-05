@@ -3,8 +3,9 @@ import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
 
 import { Booking } from "@/gql/graphql";
-import { DateField, ReferenceField, useRecordContext } from "react-admin";
+import { ReferenceField, useRecordContext } from "react-admin";
 
+import { dateStringToDate, formatDate } from "@/helpers/date";
 import { decodeGlobalId } from "@/helpers/global-ids";
 
 import Timestamps from "./Timestamps";
@@ -31,7 +32,7 @@ const BookingAside: React.FC = () => {
 
       <Typography variant="body2" gutterBottom style={{ whiteSpace: "nowrap" }}>
         <strong>Booked Date:</strong>{" "}
-        <DateField record={record} source="bookedDate" />
+        {formatDate(dateStringToDate(record.bookedDate))}
       </Typography>
 
       <Divider sx={{ marginY: "1rem" }} />

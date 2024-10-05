@@ -2,7 +2,6 @@ import { Stack } from "@mui/material";
 
 import {
   Datagrid,
-  DateField,
   List,
   ReferenceField,
   TextField,
@@ -10,6 +9,7 @@ import {
 } from "react-admin";
 
 import BookingStatusField from "../fields/BookingStatusField";
+import FormattedDateField from "../fields/FormattedDateField";
 import GlobalIdTextField from "../fields/GlobalIdTextField";
 import PriceField from "../fields/PriceField";
 import { SmartDateField } from "../fields/SmartDateField";
@@ -21,8 +21,7 @@ export const BookingList = () => (
       <BookingStatusField source="status" />
       <WrapperField label="Booking Date" sortBy="bookedDate">
         <Stack>
-          <DateField source="bookedDate" />
-          <DateField source="bookedDate" showTime showDate={false} />
+          <FormattedDateField source="bookedDate" />
         </Stack>
       </WrapperField>
 
