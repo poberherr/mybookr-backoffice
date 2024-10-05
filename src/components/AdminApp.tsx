@@ -37,6 +37,7 @@ import Dashboard from "./Dashboard";
 import { ActivityEdit } from "./edits/ActivityEdit";
 import { BookingEdit } from "./edits/BookingEdit";
 import { CategoryEdit } from "./edits/CategoryEdit";
+import { ExperienceEdit } from "./edits/ExperienceEdit";
 import { LocationEdit } from "./edits/LocationEdit";
 import { ActivityList } from "./lists/ActivityList";
 import { BookingList } from "./lists/BookingList";
@@ -98,7 +99,7 @@ const AdminApp = () => {
       <Resource
         name="Experience"
         list={ExperienceList}
-        edit={EditGuesser}
+        edit={ExperienceEdit}
         icon={Diversity2Icon}
         recordRepresentation="title"
       />
