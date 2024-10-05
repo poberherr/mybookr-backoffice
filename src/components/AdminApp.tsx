@@ -35,18 +35,21 @@ import useJwtToken from "@/helpers/clerk";
 import { ActivityCreate } from "./creates/ActivityCreate";
 import { CategoryCreate } from "./creates/CategoryCreate";
 import { ExperienceCreate } from "./creates/ExperienceCreate";
+import { UserCreate } from "./creates/UserCreate";
 import Dashboard from "./Dashboard";
 import { ActivityEdit } from "./edits/ActivityEdit";
 import { BookingEdit } from "./edits/BookingEdit";
 import { CategoryEdit } from "./edits/CategoryEdit";
 import { ExperienceEdit } from "./edits/ExperienceEdit";
 import { LocationEdit } from "./edits/LocationEdit";
+import { UserEdit } from "./edits/UserEdit";
 import { ActivityList } from "./lists/ActivityList";
 import { BookingList } from "./lists/BookingList";
 import { CategoryList } from "./lists/CategoryList";
 import { ExperienceList } from "./lists/ExperienceList";
 import { MediaList } from "./lists/MediaList";
 import { PaymentList } from "./lists/PaymentList";
+import { UserList } from "./lists/UserList";
 import { MyLayout } from "./MyLayout";
 
 const buildQuery = buildQueryFactory(
@@ -138,8 +141,9 @@ const AdminApp = () => {
       />
       <Resource
         name="User"
-        list={ListGuesser}
-        edit={EditGuesser}
+        list={UserList}
+        edit={UserEdit}
+        create={UserCreate}
         icon={PersonIcon}
         recordRepresentation="name"
       />
