@@ -35,6 +35,7 @@ import useJwtToken from "@/helpers/clerk";
 import { ActivityCreate } from "./creates/ActivityCreate";
 import { CategoryCreate } from "./creates/CategoryCreate";
 import { ExperienceCreate } from "./creates/ExperienceCreate";
+import { OperatorCreate } from "./creates/OperatorCreate";
 import { UserCreate } from "./creates/UserCreate";
 import Dashboard from "./Dashboard";
 import { ActivityEdit } from "./edits/ActivityEdit";
@@ -42,12 +43,14 @@ import { BookingEdit } from "./edits/BookingEdit";
 import { CategoryEdit } from "./edits/CategoryEdit";
 import { ExperienceEdit } from "./edits/ExperienceEdit";
 import { LocationEdit } from "./edits/LocationEdit";
+import { OperatorEdit } from "./edits/OperatorEdit";
 import { UserEdit } from "./edits/UserEdit";
 import { ActivityList } from "./lists/ActivityList";
 import { BookingList } from "./lists/BookingList";
 import { CategoryList } from "./lists/CategoryList";
 import { ExperienceList } from "./lists/ExperienceList";
 import { MediaList } from "./lists/MediaList";
+import { OperatorList } from "./lists/OperatorList";
 import { PaymentList } from "./lists/PaymentList";
 import { UserList } from "./lists/UserList";
 import { MyLayout } from "./MyLayout";
@@ -149,8 +152,9 @@ const AdminApp = () => {
       />
       <Resource
         name="Operator"
-        list={ListGuesser}
-        edit={EditGuesser}
+        list={OperatorList}
+        edit={OperatorEdit}
+        create={OperatorCreate}
         icon={SettingsAccessibilityIcon}
         recordRepresentation="name"
       />
