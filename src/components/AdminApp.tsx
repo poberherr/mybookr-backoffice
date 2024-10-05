@@ -13,15 +13,7 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
 
 import { SignInButton } from "@clerk/nextjs";
-import {
-  CREATE,
-  DELETE,
-  GET_LIST,
-  GET_MANY,
-  GET_MANY_REFERENCE,
-  GET_ONE,
-  UPDATE,
-} from "ra-core";
+import { GET_ONE } from "ra-core";
 import buildGraphQLProvider, {
   buildQueryFactory,
 } from "ra-data-graphql-simple";
@@ -78,13 +70,7 @@ const AdminApp = () => {
       buildQuery,
       introspection: {
         operationNames: {
-          [GET_LIST]: (resource) => `${resource.name}s`.toLowerCase(),
           [GET_ONE]: (resource) => resource.name.toLowerCase(),
-          [GET_MANY]: (resource) => `${resource.name}s`.toLowerCase(),
-          [GET_MANY_REFERENCE]: (resource) => `${resource.name}s`.toLowerCase(),
-          [CREATE]: (resource) => `create${resource.name}`,
-          [UPDATE]: (resource) => `update${resource.name}`,
-          [DELETE]: (resource) => `delete${resource.name}`,
         },
       },
     });
