@@ -20,7 +20,7 @@ export const ActivityEdit = () => (
         label="Experience"
       />
       <TextInput source="title" />
-      <TextInput source="description" />
+      <TextInput source="description" minRows={3} maxRows={15} multiline />
       <DollarInput source="price" />
       <NumberInput source="durationMinutes" />
       <ArrayInput source="medias">
